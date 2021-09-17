@@ -1,0 +1,187 @@
+-------------------
+# GENERAL INFORMATION
+-------------------
+Title
+The Metadata for Bi-objective Optimization for Battery Electric Bus Deployment Considering Cost and Environmental Equity
+
+---------------------
+DATA & FILE OVERVIEW
+---------------------
+File List
+   1. Filename: BusRoutes_UTA
+      Containing subfiles: YES
+      Source: Utah Transit Authority (UTA)
+      Summary: The folder contains the shapefile of bus routes of UTA in year 2016. Shapefile format consists of files with common filename prefix, stored in the same directory.
+      Software used for processing the data: ArcMap
+      Subfiles: 
+	A. BusRoutes_UTA.cpg
+		Description: Specifing the code page (only for .dbf) for identifying the character encoding to be used.
+
+	B. BusRoutes_UTA.dbf
+		Description: Attribute format; columnar attributes for each shape, in dBase IV format.
+
+	C. BusRoutes_UTA.prj
+		Description: Projection description, using a well-known text representation of coordinate reference systems.
+
+	D. BusRoutes_UTA.sbn
+		Description: A spatial index of the features.
+
+	E. BusRoutes_UTA.sbx
+		Description: A spatial index of the features.
+	
+	F. BusRoutes_UTA.shp
+		Description: Shape format; the feature geometry itself.
+
+	G. BusRoutes_UTA.shp.xml
+		Description: Geospatial metadata in XML format, such as ISO 19115 or other XML schema
+
+	H. BusRoutes_UTA.shx
+		Description: Shape index format; a positional index of the feature geometry to allow seeking forwards and backwards quickly.	         
+
+        
+   2. Filename: BusStops_UTA
+      Containing subfiles: YES
+      Source: Utah Transit Authority (UTA)
+      Summary: The folder contains the shapefile of bus stops of UTA in year 2016. Shapefile format consists of files with common filename prefix, stored in the same directory.
+      Software used for processing the data: ArcMap
+      Subfiles: 
+	A. BusStops_UTA.cpg
+		Description: Specifing the code page (only for .dbf) for identifying the character encoding to be used.
+
+	B. BusStops_UTA.dbf
+		Description: Attribute format; columnar attributes for each shape, in dBase IV format.
+
+	C. BusStops_UTA.prj
+		Description: Projection description, using a well-known text representation of coordinate reference systems.
+
+	D. BusStops_UTA.sbn
+		Description: A spatial index of the features.
+
+	E. BusStops_UTA.sbx
+		Description: A spatial index of the features.
+	
+	F. BusStops_UTA.shp
+		Description: Shape format; the feature geometry itself.
+
+	G. BusStops_UTA.shp.xml
+		Description: Geospatial metadata in XML format, such as ISO 19115 or other XML schema
+
+	H. BusStops_UTA.shx
+		Description: Shape index format; a positional index of the feature geometry to allow seeking forwards and backwards quickly.	   
+
+
+   3. Filename: UTA Runcut File  Aug2016.xlsx
+      Containing subfiles: NO
+      Source: Utah Transit Authority (UTA)
+      Summary: The file contains network information of UTA buses in year 2016.
+      Software or Language used for processing the data: Python
+
+-----------------------------------------
+TABULAR DATA-SPECIFIC INFORMATION FOR: 1-B. BusRoutes_UTA.dbf
+-----------------------------------------
+
+
+1. Number of variables:
+5
+
+2. Number of cases/rows: 
+114
+
+3. Variable List
+    A. Name: LineAbbr
+       Description: Abbreviations for bus lines.
+	Nominal 
+                    
+    B. Name: LineName
+       Description: Names of bus lines.
+	Nominal
+
+    C. Name: Service
+       Description: Category of service of bus lines.
+	Nominal, including local, express, BRT, fast bus, shuttle, ski, flex.
+
+    D. Name: Frequency
+       Description: Frequency of bus lines.
+	Ratio
+
+    E. Name: Shape_Leng
+       Description: Length of the bus routes.
+	Ratio, unit: foot
+
+
+-----------------------------------------
+TABULAR DATA-SPECIFIC INFORMATION FOR: 2-B. BusStops_UTA.dbf
+-----------------------------------------
+
+
+1. Number of variables:
+4
+
+2. Number of cases/rows: 
+5987
+
+3. Variable List
+    A. Name: StopId
+       Description: Unique identifier for bus stops.
+	Nominal 
+                    
+    B. Name: StopName
+       Description: The comlete names of bus stops.
+	Nominal
+
+    C. Name: StreetNum
+       Description: The number of the streets the stops are on.
+	Nominal
+
+    D. Name: OnStreet
+       Description: The name of the streets the stops are on.
+	Nominal
+
+
+-----------------------------------------
+TABULAR DATA-SPECIFIC INFORMATION FOR: 3. UTA Runcut File  Aug2016.xlsx
+-----------------------------------------
+
+
+1. Number of variables:
+9
+
+2. Number of cases/rows: 
+6878
+
+3. Variable List
+    A. Name: LineAbbr
+       Description: Abbreviations for bus lines.
+	Nominal 
+                    
+    B. Name: ServiceName
+       Description: Weekday or Weekend service.
+	Nominal, including WEEKDAY, SATURDAY, and SUNDAY.
+
+    C. Name: DirectionName
+       Description: The name of the destination stop.
+	Nominal
+
+    D. Name: block_num
+       Description: The unique identifier for different buses.
+	Nominal
+
+    E. Name: trip_id
+       Description: The unique identifier for different trips.
+	Nominal
+
+    F. Name: from_stop
+       Description: The name of the origin stop.
+	Nominal
+
+    G. Name: FromTime
+       Description: The time when buses begin the trip.
+	Interval
+
+    H. Name: to_stop
+       Description: The name of the destination stop.
+	Nominal
+
+    I. Name: ToTime
+       Description: The time when buses end the trip.
+	Interval

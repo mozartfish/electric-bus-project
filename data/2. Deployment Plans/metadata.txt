@@ -1,0 +1,74 @@
+-------------------
+# GENERAL INFORMATION
+-------------------
+Title
+The Metadata for Bi-objective Optimization for Battery Electric Bus Deployment Considering Cost and Environmental Equity
+
+---------------------
+DATA & FILE OVERVIEW
+---------------------
+File List
+   1. Filename: Solutions
+      Containing subfiles: YES
+      Source: Optimization Result
+      Summary: The folder contains three different deployment plans under budget $25M, $60M, and $120M. Each file is a direct output of a mixed integer programming problem using Gurobi solver.
+      Subfiles: 
+	A. p25.txt
+		Solution file under budget $25M.
+
+	B. p60.txt
+		Solution file under budget $60M.
+
+	C. p180.txt
+		Solution file under budget $120M.
+
+    2. Filename: UTA_Runcut_Potential_Stop.xls
+      Containing subfiles: NO
+      Source: UTA
+      Summary: This file contains the crosswalk information (ID and stop_name) bewteen variable Y## in different deployment plans and BusStops_UTA.
+        
+-----------------------------------------
+TABULAR DATA-SPECIFIC INFORMATION FOR: 1-A, 1-B, 1-C
+-----------------------------------------
+
+
+1. Number of variables:
+5
+
+2. Variable List
+    A. Name: Objective value
+       Description: Total environmental equity (objective)
+	Ratio
+                    
+    B. Name: Z#### 
+       Description: Whether bus #### (Bus block number in Runcut file) is replaced with BEB
+	Ratio, Binary
+
+    C. Name: m####_s  
+       Description: Distance traveled by bus #### at sequence s (refer to Intro.ppt for explanation)
+	Ratio, unit: mile
+
+    D. Name: X####_s
+       Description: Whether bus #### (Bus block number in Runcut file) is charged at sequence s (refer to Intro.ppt for explanation)
+	Ratio, Binary
+
+    E. Name: Y##
+       Description: Number of on-route charging stations built on stop ID ## (refer to 2. UTA_Runcut_Potential_Stop.xls)
+	Ratio
+
+-----------------------------------------
+TABULAR DATA-SPECIFIC INFORMATION FOR: 2
+-----------------------------------------
+
+
+1. Number of variables:
+2
+
+2. Variable List
+    A. Name: Stop_id
+       Description: Corresponding to ## in Y## from 1-A, 1-B, and 1-C
+	Nominal
+                    
+    B. Name: Stop_name 
+       Description: The actual name of stop Y##, which can be found in the shapefiles of bus stops
+	Nominal

@@ -1,0 +1,192 @@
+---------------------
+DATA & FILE OVERVIEW
+---------------------
+File List
+
+   4. Filename: TAZ
+      Containing subfiles: YES
+      Source: WFRC
+      Summary: The folder contains the shapefile of Traffic Analysis Zone in the Salt Lake Metropolitan area. 
+      Software or Language used for processing the data: ArcMap
+      Subfiles: 
+	A. TAZ.cpg
+		Description: Specifing the code page (only for .dbf) for identifying the character encoding to be used.
+
+	B. TAZ.dbf
+		Description: Attribute format; columnar attributes for each shape, in dBase IV format.
+
+	C. TAZ.prj
+		Description: Projection description, using a well-known text representation of coordinate reference systems.
+
+	D. TAZ.sbn
+		Description: A spatial index of the features.
+
+	E. TAZ.sbx
+		Description: A spatial index of the features.
+	
+	F. TAZ.shp
+		Description: Shape format; the feature geometry itself.
+
+	G. TAZ.xml
+		Description: Geospatial metadata in XML format, such as ISO 19115 or other XML schema
+
+	H. TAZ.shx
+		Description: Shape index format; a positional index of the feature geometry to allow seeking forwards and backwards quickly. 
+
+   5. Filename: Marginal_Income.xlsx
+      Containing subfiles: NO
+      Source: WFRC
+      Summary: The file contains the size of four income group at TAZ level.
+      Software or Language used for processing the data: Python 2.x
+
+   6. Filename: SE_File_v83_SE19_Net19.xlsx
+      Containing subfiles: NO
+      Source: WFRC
+      Summary: The file contains the household size, household population, and employment level at TAZ level.
+      Software or Language used for processing the data: Python 2.x
+
+   7. Filename: Pollutant Concentration.xlsx
+      Containing subfiles: NO
+      Source: https://www2.purpleair.com/
+      Summary: The file contains readings of pollutant concentration extracted from PurpleAir Sensors from Oct 1st to Oct 14th, 2019. 
+      Software or Language used for processing the data: Python 2.x
+
+   8. Filename: Ei_for_bus.csv
+      Containing subfiles: NO
+      Summary: The file contains the environmental equity associated with each bus, which is an attribute of each bus not each trip.
+      Software or Language used for processing the data: Python 2.x
+
+-----------------------------------------
+TABULAR DATA-SPECIFIC INFORMATION FOR: 4-B. TAZ.dbf
+-----------------------------------------
+
+
+1. Number of variables:
+2
+
+2. Number of cases/rows: 
+2881
+
+3. Variable List
+    A. Name: CO_TAZID
+       Description: Unique identifier for TAZs.
+	Nominal
+                    
+    B. Name: AREA
+       Description: The area of the TAZ.
+	Ratio, Unit: squre foot
+
+
+-----------------------------------------
+TABULAR DATA-SPECIFIC INFORMATION FOR: 5. Marginal_Income.xlsx
+-----------------------------------------
+
+
+1. Number of variables:
+6
+
+2. Number of cases/rows: 
+2881
+
+3. Variable List
+    A. Name: CO_TAZID
+       Description: Unique identifier for TAZs.
+	Nominal 
+                    
+    B. Name: INC1
+       Description: The number of households in income group 1 ($0 - $34,999).
+	Ratio
+
+    C. Name: INC2
+       Description: The number of households in income group 2 ($35,000 - $49,000).
+	Ratio
+
+    D. Name: INC3
+       Description: The number of households in income group 3 ($50,000 - $99,999).
+	Ratio
+
+    E. Name: INC4
+       Description: The number of households in income group 4 (over $100,000).
+	Ratio
+
+    F. Name: TOTHH
+       Description: The number of total households.
+	Ratio
+
+
+-----------------------------------------
+TABULAR DATA-SPECIFIC INFORMATION FOR: 6. SE_File_v83_SE19_Net19.xlsx
+-----------------------------------------
+
+
+1. Number of variables:
+5
+
+2. Number of cases/rows: 
+2881
+
+3. Variable List
+    A. Name: CO_TAZID
+       Description: Unique identifier for TAZs.
+	Nominal 
+                    
+    B. Name: TOTHH
+       Description: The number of total households.
+	Ratio
+
+    C. Name: HHPOP
+       Description: The total household population.
+	Ratio
+
+    D. Name: HHSIZE
+       Description: The average household size.
+	Ratio
+
+    E. Name: TOTEMP
+       Description: The number of total employment.
+	Ratio
+
+
+-----------------------------------------
+TABULAR DATA-SPECIFIC INFORMATION FOR: 7. Pollutant Concentration.xlsx
+-----------------------------------------
+
+
+1. Number of variables:
+3
+
+2. Number of cases/rows: 
+438
+
+3. Variable List
+    A. Name: lat
+       Description: Lattitude of the PurpleAir Sensor.
+	Interval
+                    
+    B. Name: lon
+       Description: Longitude of the PurpleAir Sensor.
+	Interval
+
+    C. Name: PM2.5_ATM_ug/m3
+       Description: The concentration of PM 2.5.
+	ratio, unit: ug/m3
+
+-----------------------------------------
+TABULAR DATA-SPECIFIC INFORMATION FOR: 8. Ei_for_bus.csv
+-----------------------------------------
+
+
+1. Number of variables:
+2
+
+2. Number of cases/rows: 
+673
+
+3. Variable List
+    A. Name: block_num
+       Description: Bus ID
+	Nominal
+                    
+    B. Name: Ei
+       Description: The associated environmental equity with the bus
+	ratio, unit: ug/m3
