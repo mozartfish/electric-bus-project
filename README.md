@@ -1,8 +1,11 @@
 # electric-bus-project
 CS 6965 (Advanced Data Visualization) Electric Bus Project
 
-`Authors: Pranav Rajan (MS Computing HCC Candidate), Jasmine Han (Geograph PhD Candidate`
+## Authors
+Pranav Rajan (MS Computing HCC Candidate), Jasmine Han (Geography PhD Candidate) 
 
+## Description
+This project is an interactive visualization tool for visualizing and analyzing electric bus data gathered by researchers in the department of Civil and Environmental Engineering at the University of Utah. This work is supervised by Professor Bei Wang-Phillips (University of Utah School of Computing, SCI Institute) and Professor Cathy Liu (University of Utah Civil and Environmental Engineering)
 ## Quick Start
 To get the application up and running:
 
