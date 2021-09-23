@@ -3,7 +3,8 @@
  */
 
 // Test for ensuring the script is running properly in the browser
-// console.log('hello, world');
+console.log('hello, world');
+
 async function drawChart() {
   const runCutData = await d3.csv(
     './data/1. Network Data/3. UTA Runcut File  Aug2016.csv'
@@ -23,22 +24,6 @@ async function drawChart() {
   const electricStatData = await d3.csv(
     './data/3. Supplementary Data/8. Ei_for_bus.csv'
   );
-
-  // plan data
-  const plan20Data = await d3.text(
-    './data/2. Deployment Plans/1. Solutions/p20.txt'
-  );
-
-  const plan60Data = await d3.text(
-    './data/2. Deployment Plans/1. Solutions/p60.txt'
-  );
-
-  const plan180Data = await d3.text(
-    './data/2. Deployment Plans/1. Solutions/p180.txt'
-  );
-
-  console.log(plan20Data);
-  
 
   // console.log('runcut data');
   // console.log(runCutData);
