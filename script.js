@@ -24,18 +24,34 @@ async function drawChart() {
     './data/3. Supplementary Data/8. Ei_for_bus.csv'
   );
 
-  console.log('runcut data');
-  console.log(runCutData);
-  console.log('stop data');
-  console.log(potentialStopData);
-  console.log('marginal income data');
-  console.log(marginalIncomeData);
-  console.log('social equality data');
-  console.log(SEData);
-  console.log('pollution data');
-  console.log(poulltionData);
-  console.log('electric bus info data');
-  console.log(electricStatData);
+  // plan data
+  const plan20Data = await d3.text(
+    './data/2. Deployment Plans/1. Solutions/p20.txt'
+  );
+
+  const plan60Data = await d3.text(
+    './data/2. Deployment Plans/1. Solutions/p60.txt'
+  );
+
+  const plan180Data = await d3.text(
+    './data/2. Deployment Plans/1. Solutions/p180.txt'
+  );
+
+  console.log(plan20Data);
+  
+
+  // console.log('runcut data');
+  // console.log(runCutData);
+  // console.log('stop data');
+  // console.log(potentialStopData);
+  // console.log('marginal income data');
+  // console.log(marginalIncomeData);
+  // console.log('social equality data');
+  // console.log(SEData);
+  // console.log('pollution data');
+  // console.log(poulltionData);
+  // console.log('electric bus info data');
+  // console.log(electricStatData);
 }
 
 drawChart();
