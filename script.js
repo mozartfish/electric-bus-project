@@ -24,19 +24,33 @@ async function drawChart() {
   const electricStatData = await d3.csv(
     './data/3. Supplementary Data/8. Ei_for_bus.csv'
   );
+  const p20Data = await d3.json(
+    './data/2. Deployment Plans/1. Solutions/p20.json'
+  );
+  const p60Data = await d3.json(
+    './data/2. Deployment Plans/1. Solutions/p60.json'
+  );
+  const p180Data = await d3.json(
+    './data/2. Deployment Plans/1. Solutions/p180.json'
+  );
 
-  // console.log('runcut data');
-  // console.log(runCutData);
-  // console.log('stop data');
-  // console.log(potentialStopData);
-  // console.log('marginal income data');
-  // console.log(marginalIncomeData);
-  // console.log('social equality data');
-  // console.log(SEData);
-  // console.log('pollution data');
-  // console.log(poulltionData);
-  // console.log('electric bus info data');
-  // console.log(electricStatData);
+  // print out a bunch of stuff
+  console.log('p20 data', p20Data);
+  console.log('p60 data', p60Data);
+  console.log('p180 data', p180Data);
+
+  console.log('runcut data');
+  console.log(runCutData);
+  console.log('stop data');
+  console.log(potentialStopData);
+  console.log('marginal income data');
+  console.log(marginalIncomeData);
+  console.log('social equality data');
+  console.log(SEData);
+  console.log('pollution data');
+  console.log(poulltionData);
+  console.log('electric bus info data');
+  console.log(electricStatData);
 }
 
 drawChart();
