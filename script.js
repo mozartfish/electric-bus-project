@@ -3,11 +3,23 @@
  */
 
 // Test for ensuring the script is running properly in the browser
-console.log('hello, world');
+// console.log('hello, world');
 
 async function drawChart() {
   const runCutData = await d3.csv(
-    './data/1. Network Data/3. UTA Runcut File  Aug2016.csv'
+    './data/1. Network Data/3. UTA Runcut File  Aug2016.csv',
+    (d) => {
+      return {
+        busID: +d.block_num,
+        directionName: d.DirectionName,
+        fromTime: d.FromTime,
+        toTime: d.ToTime,
+        fromStop: d.from_stop,
+        toStop: d.to_stop,
+        serviceName: d.ServiceName,
+        lineAbbr: +d.LineAbbr,
+      };
+    }
   );
   const potentialStopData = await d3.csv(
     './data/2. Deployment Plans/2. UTA_Runcut_Potential_Stop.csv'
@@ -34,23 +46,30 @@ async function drawChart() {
     './data/2. Deployment Plans/1. Solutions/p180.json'
   );
 
+  const busStopData = await d3.json('./data/BusStopsProject.json');
+  console.log('the bus stop data: ', busStopData);
+
   // print out a bunch of stuff
-  console.log('p20 data', p20Data);
-  console.log('p60 data', p60Data);
-  console.log('p180 data', p180Data);
 
   console.log('runcut data');
   console.log(runCutData);
   console.log('stop data');
-  console.log(potentialStopData);
-  console.log('marginal income data');
-  console.log(marginalIncomeData);
-  console.log('social equality data');
-  console.log(SEData);
-  console.log('pollution data');
-  console.log(poulltionData);
-  console.log('electric bus info data');
-  console.log(electricStatData);
+  const stopDataMap = processPotentialStop(potentialStopData);
+  console.log(stopDataMap);
+  console.log('stop coordinate data');
+  const stopCoordinateData = processBuStopData(busStopData);
+  console.log(stopCoordinateData);
+  // console.log('marginal income data');
+  // console.log(marginalIncomeData);
+  // console.log('social equality data');
+  // console.log(SEData);
+  // console.log('pollution data');
+  // console.log(poulltionData);
+  // console.log('electric bus info data');
+  // console.log(electricStatData);
+  console.log('p20 data', p20Data);
+  // console.log('p60 data', p60Data);
+  // console.log('p180 data', p180Data);
 }
 
 drawChart();
