@@ -6,9 +6,18 @@
 // console.log('hello, world');
 
 async function drawChart() {
+  let currentBusID = '';
+  let currentSequence = 0;
   const runCutData = await d3.csv(
     './data/1. Network Data/3. UTA Runcut File  Aug2016.csv',
     (d) => {
+      let busID = d.block_num;
+      if (busID === currentBusID) {
+        currentSequence++;
+      } else {
+        currentBusID = busID;
+        currentSequence = 0;
+      }
       return {
         busID: +d.block_num,
         directionName: d.DirectionName,
@@ -18,6 +27,7 @@ async function drawChart() {
         toStop: d.to_stop,
         serviceName: d.ServiceName,
         lineAbbr: +d.LineAbbr,
+        busSequence: currentSequence,
       };
     }
   );
@@ -47,18 +57,18 @@ async function drawChart() {
   );
 
   const busStopData = await d3.json('./data/BusStopsProject.json');
-  console.log('the bus stop data: ', busStopData);
+  // console.log('the bus stop data: ', busStopData);
 
   // print out a bunch of stuff
 
-  console.log('runcut data');
-  console.log(runCutData);
-  console.log('stop data');
-  const stopDataMap = processPotentialStop(potentialStopData);
-  console.log(stopDataMap);
-  console.log('stop coordinate data');
-  const stopCoordinateData = processBuStopData(busStopData);
-  console.log(stopCoordinateData);
+  // console.log('runcut data');
+  // console.log(runCutData);
+  // console.log('stop data');
+  // const stopDataMap = processPotentialStop(potentialStopData);
+  // console.log(stopDataMap);
+  // console.log('stop coordinate data');
+  // const stopCoordinateData = processBuStopData(busStopData);
+  // console.log(stopCoordinateData);
   // console.log('marginal income data');
   // console.log(marginalIncomeData);
   // console.log('social equality data');
