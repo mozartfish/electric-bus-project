@@ -64,7 +64,7 @@ if __name__ == "__main__":
                     stop_id = int(key[1:])
                     charge_stations[stop_id] = int(value)
 
-    processed_data = {"Environmental Equity": equity_value,
+    processed_data = {"Total Environmental Equity": equity_value,
                  "Replace Buses": replace_bus,
                  "Bus Distance": bus_distance,
                  "Charge Sequence": charge_sequence,
