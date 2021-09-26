@@ -58,6 +58,8 @@ async function drawChart() {
 
   const busStopData = await d3.json('./data/BusStopsProject.json');
 
+  const busRoutesData = await d3.json('./data/BusRoutesProject.json');
+
   // print out a bunch of stuff
 
   // Runcut Data
@@ -82,6 +84,9 @@ async function drawChart() {
 
   // Electric Bus Statistics Data
   console.log('electric bus info data', electricStatData);
+
+  // Bus Routes Data
+  console.log('bus routes data', busRoutesData);
 
   // Plan Data
   console.log('Plan Data');
