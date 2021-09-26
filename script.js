@@ -40,7 +40,7 @@ async function drawChart() {
   const SEData = await d3.csv(
     './data/3. Supplementary Data/6. SE_File_v83_SE19_Net19.csv'
   );
-  const poulltionData = await d3.csv(
+  const pollutionData = await d3.csv(
     './data/3. Supplementary Data/7. Pollutant Concentration.csv'
   );
   const electricStatData = await d3.csv(
@@ -57,29 +57,37 @@ async function drawChart() {
   );
 
   const busStopData = await d3.json('./data/BusStopsProject.json');
-  // console.log('the bus stop data: ', busStopData);
 
   // print out a bunch of stuff
 
-  // console.log('runcut data');
-  // console.log(runCutData);
-  // console.log('stop data');
-  // const stopDataMap = processPotentialStop(potentialStopData);
-  // console.log(stopDataMap);
-  // console.log('stop coordinate data');
-  // const stopCoordinateData = processBuStopData(busStopData);
-  // console.log(stopCoordinateData);
-  // console.log('marginal income data');
-  // console.log(marginalIncomeData);
-  // console.log('social equality data');
-  // console.log(SEData);
-  // console.log('pollution data');
-  // console.log(poulltionData);
-  // console.log('electric bus info data');
-  // console.log(electricStatData);
+  // Runcut Data
+  console.log('runcut data', runCutData);
+
+  // Stop Data
+  const stopDataMap = processPotentialStop(potentialStopData);
+  console.log('stop data,', stopDataMap);
+
+  // Stop Coordinate Data
+  const stopCoordinateData = processBuStopData(busStopData);
+  console.log('stop coordinate data', stopCoordinateData);
+
+  // Marginal Income Data
+  console.log('marginal income data', marginalIncomeData);
+
+  // Social Equity Data
+  console.log('social equality data', SEData);
+
+  // Pollution Data
+  console.log('pollution data', pollutionData);
+
+  // Electric Bus Statistics Data
+  console.log('electric bus info data', electricStatData);
+
+  // Plan Data
+  console.log('Plan Data');
   console.log('p20 data', p20Data);
-  // console.log('p60 data', p60Data);
-  // console.log('p180 data', p180Data);
+  console.log('p60 data', p60Data);
+  console.log('p180 data', p180Data);
 }
 
 drawChart();
