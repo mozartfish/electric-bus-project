@@ -56,43 +56,49 @@ async function drawChart() {
     './data/2. Deployment Plans/1. Solutions/p180.json'
   );
 
-  const busStopData = await d3.json('./data/BusStopsProject.json');
+  const busStopData = await d3.json('data/BusStopsProject.json');
 
   const busRoutesData = await d3.json('./data/BusRoutesProject.json');
 
-  // print out a bunch of stuff
+  const TAZProjectionData = await d3.json('./data/TAZProject.json');
 
-  // Runcut Data
-  console.log('runcut data', runCutData);
+  // // print out a bunch of stuff
 
-  // Stop Data
-  const stopDataMap = processPotentialStop(potentialStopData);
-  console.log('stop data,', stopDataMap);
+  // // Runcut Data
+  // console.log('runcut data', runCutData);
 
-  // Stop Coordinate Data
-  const stopCoordinateData = processBuStopData(busStopData);
-  console.log('stop coordinate data', stopCoordinateData);
+  // // Stop Data
+  // const stopDataMap = processPotentialStop(potentialStopData);
+  // console.log('stop data,', stopDataMap);
 
-  // Marginal Income Data
-  console.log('marginal income data', marginalIncomeData);
+  // // Stop Coordinate Data
+  // const stopCoordinateData = processBuStopData(busStopData);
+  // console.log('stop coordinate data', stopCoordinateData);
 
-  // Social Equity Data
-  console.log('social equality data', SEData);
+  // // Marginal Income Data
+  // console.log('marginal income data', marginalIncomeData);
 
-  // Pollution Data
-  console.log('pollution data', pollutionData);
+  // // Social Equity Data
+  // console.log('social equality data', SEData);
 
-  // Electric Bus Statistics Data
-  console.log('electric bus info data', electricStatData);
+  // // Pollution Data
+  // console.log('pollution data', pollutionData);
 
-  // Bus Routes Data
-  console.log('bus routes data', busRoutesData);
+  // // Electric Bus Statistics Data
+  // console.log('electric bus info data', electricStatData);
 
-  // Plan Data
-  console.log('Plan Data');
-  console.log('p20 data', p20Data);
-  console.log('p60 data', p60Data);
-  console.log('p180 data', p180Data);
+  // // Bus Routes Data
+  // console.log('bus routes data', busRoutesData);
+
+  // // Plan Data
+  // console.log('Plan Data');
+  // console.log('p20 data', p20Data);
+  // console.log('p60 data', p60Data);
+  // console.log('p180 data', p180Data);
+
+  // generate map view
+  let map = new busMap(TAZProjectionData, busRoutesData, busStopData);
+  map.drawMap();
 }
 
 drawChart();
