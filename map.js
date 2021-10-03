@@ -22,15 +22,19 @@ class busMap {
     ).addTo(map);
 
     // Add 3 SVG elements to Leaflet Overlay Pane for routes (ie stops, routes, TAZ)
-    let baseMapLayer = d3
+    const TazSVG = d3
       .select(map.getPanes().overlayPane)
       .append('svg')
-      .attr('id', 'baseMapSVG');
+      .attr('id', 'TazSVG');
     // let baseMapGroup = baseMapLayer
     //   .append('g')
     //   .attr('class', 'leaflet-zoom-hide')
     //   .attr('id', 'baseMapGroup');
 
+
+    const TazGroup = TazSVG.append('g').attr('class', 'TazClass').attr('id', 'TazId');
+
+    /*
     let busRouteLayer = d3
       .select(map.getPanes().overlayPane)
       .append('svg')
@@ -45,20 +49,33 @@ class busMap {
       .append('svg')
       .attr('id', 'busStopLayerSVG');
 
-    // project the point onto openstreetmap
-    const projectPoint = (x, y) => {
-      const point = map.latLngToLayerPoint(new L.LatLng(y, x));
-      this.stream.point(point.x, point.y);
-    };
 
-    // console.log('thing');
+  */
+
+
+
+
+    // project the point onto openstreetmap
+    function projectPoint(x, y) {
+      var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+      this.stream.point(point.x, point.y);
+    }
+    // let projectPoint = (x, y) => {
+    //   let point = map.latLngToLayerPoint(new L.LatLng(y, x));
+    //   this.stream.point(point.x, point.y);
+    // };
+
+    const projection = d3.geoTransform({ point: projectPoint });
+  // create a d3.geoPath to convert GeoJSON to SVG
+    const path = d3.geoPath().projection(projection);
+  // console.log('the path', path);
+
 
     // // create a d3.geoPath to convert GeoJSON to SVG
     // const geoPath = d3.geoPath().projection(projection);
-    console.log(this.geoShapeData.features);
+    console.log("features",this.geoShapeData.features);
     // draw stuff on the map
-    const mapFeatures = d3
-      .select('#baseMapSVG')
+    const TazFeatures = TazGroup
       .selectAll('path')
       .data(this.geoShapeData.features)
       .enter()
@@ -70,6 +87,94 @@ class busMap {
     //   .attr('stroke', 'black')
     //   .attr('z-index', 3000)
     //   .attr('stroke-width', 1);
+    console.log("TAZFeatures", TazFeatures)
+
+    // let bounds = path.bounds(this.geoShapeData)
+    // console.log("bounds",bounds)
+
+    //fit the SVG element to leaflet's map layer
+    
+
+    // function reset() {
+    //   bounds = path.bounds(this.geoShapeData);
+  
+    //   var topLeft = bounds[0],
+    //     bottomRight = bounds[1];
+  
+    //   svg
+    //     .attr('width', bottomRight[0] - topLeft[0])
+    //     .attr('height', bottomRight[1] - topLeft[1])
+    //     .style('left', topLeft[0] + 'px')
+    //     .style('top', topLeft[1] + 'px');
+  
+    //   g.attr('transform', 'translate(' + -topLeft[0] + ',' + -topLeft[1] + ')');
+  
+    //   // initialize the path data
+    //   d3_features
+    //     .attr('d', path)
+    //     .attr('fill-opacity', 0.3)
+    //     .attr('stroke', 'black')
+    //     .attr('z-index', 3000)
+    //     .attr('stroke-width', 1);
+    // }
+    
+    const reset = () =>{
+
+      var bounds = path.bounds(this.geoShapeData);
+      console.log("bounds", bounds)
+  
+      var topLeft = bounds[0],
+        bottomRight = bounds[1];
+  
+      TazSVG
+        .attr('width', bottomRight[0] - topLeft[0])
+        .attr('height', bottomRight[1] - topLeft[1])
+        .style('left', topLeft[0] + 'px')
+        .style('top', topLeft[1] + 'px');
+  
+      TazGroup.attr('transform', 'translate(' + -topLeft[0] + ',' + -topLeft[1] + ')');
+  
+      // initialize the path data
+      TazFeatures
+        .attr('d', path)
+        .attr('fill-opacity', 0.3)
+        .attr('stroke', 'black')
+        .attr('z-index', 3000)
+        .attr('stroke-width', 1);
+    
+    }
+
+    
+    map.on('viewreset', reset);
+
+    reset();
+    
+
+
+    // var reset = () =>{
+    //   var bounds = path.bounds(this.geoShapeData);
+  
+    //   var topLeft = bounds[0],
+    //     bottomRight = bounds[1];
+  
+    //   TazSVG
+    //     .attr('width', bottomRight[0] - topLeft[0])
+    //     .attr('height', bottomRight[1] - topLeft[1])
+    //     .style('left', topLeft[0] + 'px')
+    //     .style('top', topLeft[1] + 'px');
+  
+    //   TazGroup.attr('transform', 'translate(' + -topLeft[0] + ',' + -topLeft[1] + ')');
+  
+    //   // initialize the path data
+    //   TazFeatures
+    //     .attr('d', path)
+    //     .attr('fill-opacity', 0.3)
+    //     .attr('stroke', 'black')
+    //     .attr('z-index', 3000)
+    //     .attr('stroke-width', 1);
+    // }  
+
+   
   }
 }
 // // update the map reset
