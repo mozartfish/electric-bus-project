@@ -87,13 +87,6 @@ class busMap {
     .enter()
     .append('path');
 
-  
-    
-
-   
-
-
-
     const reset = () =>{
 
       const bounds = path.bounds(this.geoShapeData);
@@ -103,7 +96,6 @@ class busMap {
       const topLeft = bounds[0],
         bottomRight = bounds[1];
 
-  
       tazSVG
         .attr('width', bottomRight[0] - topLeft[0])
         .attr('height', bottomRight[1] - topLeft[1])
