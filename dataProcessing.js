@@ -22,3 +22,23 @@ function processBuStopData(busData) {
 
   return result;
 }
+
+function mapBusData(runCutData) {
+  const busMap = new Map();
+  runCutData.forEach((busObj) => {
+    let busID = busObj.busID;
+    let fromStop = busObj.fromStop;
+    let toStop = busObj.toStop;
+    if (busMap.get(busID)) {
+      const stops = busMap.get(busID);
+      stops.push([fromStop, toStop]);
+      busMap.set(busID, stops);
+    } else {
+      const stops = [];
+      stops.push([fromStop, toStop]);
+      busMap.set(busID, stops);
+    }
+  });
+
+  return busMap;
+}

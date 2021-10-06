@@ -64,30 +64,34 @@ async function drawChart() {
 
   // // print out a bunch of stuff
 
-  // // Runcut Data
-  // console.log('runcut data', runCutData);
+  // Runcut Data
+  console.log('runcut data', runCutData);
+  const busStopMap = mapBusData(runCutData);
+  console.log('Buses and their stops: ', busStopMap);
 
-  // // Stop Data
+  // Build data structures for mapping buses to all of their Stops
+
+  // Stop Data
   // const stopDataMap = processPotentialStop(potentialStopData);
   // console.log('stop data,', stopDataMap);
 
-  // // Stop Coordinate Data
+  // Stop Coordinate Data
   // const stopCoordinateData = processBuStopData(busStopData);
   // console.log('stop coordinate data', stopCoordinateData);
 
-  // // Marginal Income Data
+  // Marginal Income Data
   // console.log('marginal income data', marginalIncomeData);
 
-  // // Social Equity Data
+  // Social Equity Data
   // console.log('social equality data', SEData);
 
-  // // Pollution Data
+  // Pollution Data
   // console.log('pollution data', pollutionData);
 
-  // // Electric Bus Statistics Data
+  // Electric Bus Statistics Data
   // console.log('electric bus info data', electricStatData);
 
-  // // Bus Routes Data
+  // Bus Routes Data
   // console.log('bus routes data', busRoutesData);
 
   // // Plan Data
