@@ -8,9 +8,9 @@ class busMap {
 
 
   drawMap() {
-    console.log('geoshape', this.geoShapeData);
-    console.log('geopolyline', this.geoPolylineData);
-    console.log('geopoint', this.geoPointData);
+    // console.log('geoshape', this.geoShapeData);
+    // console.log('geopolyline', this.geoPolylineData);
+    // console.log('geopoint', this.geoPointData);
 
     
     const map = L.map('map').setView([40.758701, -111.876183], 8);
@@ -65,7 +65,7 @@ class busMap {
 
     // // create a d3.geoPath to convert GeoJSON to SVG
     // const geoPath = d3.geoPath().projection(projection);
-    console.log("features",this.geoShapeData.features);
+    // console.log("features",this.geoShapeData.features);
     // draw stuff on the map
     const tazFeatures = tazGroup
       .selectAll('path')
@@ -87,23 +87,15 @@ class busMap {
     .enter()
     .append('path');
 
-  
-    
-
-   
-
-
-
     const reset = () =>{
 
       const bounds = path.bounds(this.geoShapeData);
 
-      console.log("bounds", bounds)
+      // console.log("bounds", bounds)
   
       const topLeft = bounds[0],
         bottomRight = bounds[1];
 
-  
       tazSVG
         .attr('width', bottomRight[0] - topLeft[0])
         .attr('height', bottomRight[1] - topLeft[1])
@@ -135,7 +127,7 @@ class busMap {
 
       const bounds1 = path.bounds(this.geoPolylineData);
 
-      console.log("bounds1", bounds1)
+      // console.log("bounds1", bounds1)
   
       const topLeft1 = bounds1[0],
         bottomRight1 = bounds1[1];
