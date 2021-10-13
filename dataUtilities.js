@@ -108,11 +108,7 @@ function processBusStopPath(runCutData) {
  * @returns - map of bus stop names to stop geographic coordinates
  */
 function processBusStopCoordinateData(busStopGeoData) {
-  console.log('bus geo data');
-  console.log(busStopGeoData);
   const geoFeatures = busStopGeoData.features;
-  console.log('geo features');
-  console.log(geoFeatures);
   const stopCoordinates = new Map();
   geoFeatures.forEach((feature) => {
     const coordinates = feature.geometry.coordinates;
@@ -122,6 +118,28 @@ function processBusStopCoordinateData(busStopGeoData) {
   return stopCoordinates;
 }
 
+/**
+ * Function that combines the data from marginal income and social equtiy data objects into a single statistical object
+ * @param {*} marginalIncomeData - data associated with marginal income statistical data
+ * @param {*} socialEquityData - data associated with social equity statistical data
+ * @returns - list of objects containing the marginal income data and social equity data combined into a single object
+ */
+function processGeographicalStatistics(marginalIncomeData, socialEquityData) {
+  const statObjects = marginalIncomeData.map((d) => {
+    // find the object with the same key name
+    let cID = d.CO_TAZID;
+    const equityObj = socialEquityData.find((SE) => SE.CO_TAZID === cID);
+    const statObj = {
+      ...d,
+    };
+    // add equity info
+    statObj.HHSIZE = equityObj.HHSIZE;
+    statObj.TOTEMP = equityObj.TOTEMP;
+    statObj.HHPOP = equityObj.HHPOP;
+    return statObj;
+  });
+  return statObjects;
+}
 
 // function processBusStopData(busData) {
 //   const busDataFeatures = busData.features;

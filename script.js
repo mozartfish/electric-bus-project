@@ -101,19 +101,21 @@ async function build() {
   // Stop Coordinates
   const stopCoordinates = processBusStopCoordinateData(busStopGeoData);
 
-  // PROCESS THE SUPPLEMENTARY DATA
+  // PROCESS THE SUPPLEMENTARY DATA FOR THE TABLE AND CHARTS
   const marginalIncomeData = await d3.csv(
     './data/3. Supplementary Data/5. Marginal_Income.csv'
   );
-  // console.log('marginal income data');
-  // console.log(marginalIncomeData);
-
   const SEData = await d3.csv(
     './data/3. Supplementary Data/6. SE_File_v83_SE19_Net19.csv'
   );
-  // console.log('social equity data');
-  // console.log(SEData);
 
+  const geographicalStatistics = processGeographicalStatistics(
+    marginalIncomeData,
+    SEData
+  );
+
+
+// PROCESS THE SUPPLEMENTARY DATA FOR THE MAP
   const pollutionData = await d3.csv(
     './data/3. Supplementary Data/7. Pollutant Concentration.csv'
   );
