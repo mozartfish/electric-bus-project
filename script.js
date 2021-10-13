@@ -103,10 +103,33 @@ async function build() {
 
   // PROCESS THE SUPPLEMENTARY DATA FOR THE TABLE AND CHARTS
   const marginalIncomeData = await d3.csv(
-    './data/3. Supplementary Data/5. Marginal_Income.csv'
+    './data/3. Supplementary Data/5. Marginal_Income.csv',
+    (d) => {
+      return {
+        CO_TAZID: +d.CO_TAZID,
+        INC1: +d.INC1,
+        INC2: +d.INC2,
+        INC3: +d.INC3,
+        INC4: +d.INC4,
+        TOTHH: +d.TOTHH,
+      };
+    }
   );
+
+  // console.log('marginal income data');
+  // console.log(marginalIncomeData);
+
   const SEData = await d3.csv(
-    './data/3. Supplementary Data/6. SE_File_v83_SE19_Net19.csv'
+    './data/3. Supplementary Data/6. SE_File_v83_SE19_Net19.csv',
+    (d) => {
+      return {
+        CO_TAZID: +d.CO_TAZID,
+        HHPOP: +d.HHPOP,
+        HHSIZE: +d.HHSIZE,
+        TOTEMP: +d.TOTEMP,
+        TOTHH: +d.TOTHH,
+      };
+    }
   );
 
   const geographicalStatistics = processGeographicalStatistics(
@@ -114,8 +137,7 @@ async function build() {
     SEData
   );
 
-
-// PROCESS THE SUPPLEMENTARY DATA FOR THE MAP
+  // PROCESS THE SUPPLEMENTARY DATA FOR THE MAP
   const pollutionData = await d3.csv(
     './data/3. Supplementary Data/7. Pollutant Concentration.csv'
   );
@@ -128,6 +150,9 @@ async function build() {
   // console.log('electricalStatisticsData');
   // console.log(electricStatData);
 }
+
+// VISUALIZATION CODE GOES HERE
+
 build();
 
 // async function drawChart() {
