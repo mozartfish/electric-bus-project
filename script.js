@@ -151,7 +151,8 @@ async function build() {
   // console.log(electricStatData);
 }
 
-// VISUALIZATION CODE GOES HERE
+// Create the visualization tool
+title();
 
 build();
 
