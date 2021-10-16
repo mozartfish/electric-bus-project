@@ -116,8 +116,6 @@ function processBusStopCoordinateData(busStopGeoData) {
     const stopName = feature.properties.StopName;
     stopCoordinates.set(stopName, coordinates);
   });
-
-  console.log('stop coordinates', stopCoordinates);
   return stopCoordinates;
 }
 
@@ -142,6 +140,33 @@ function processGeographicalStatistics(marginalIncomeData, socialEquityData) {
     return statObj;
   });
   return statObjects;
+}
+
+/**
+ * Function that maps bus ID to stop sequence coordinates
+ * @param {*} busStopSequenceData - bus stop sequence data
+ * @param {*} busStopCoordinateData - coordinate mapping with bus stop name and bus stop coordinates
+ * @returns - bus ID to coordinates for the different routes for a particular bus
+ */
+function busIDCoordinates(busStopSequenceData, busStopCoordinateData) {
+  // console.log('bus stop sequence data');
+  // console.log(busStopSequenceData);
+  // console.log('bus stop coordinate data');
+  // console.log(busStopCoordinateData);
+
+  // create new map object for mapping bus ID to coordinates for stops
+  const busIDCoordinates = new Map();
+
+  busStopSequenceData.forEach((value, key) => {
+    const stopCoordinates = value.map((stop) => {
+      [fromStop, toStop] = stop;
+      const fromStopCoords = busStopCoordinateData.get(fromStop);
+      const toStopCoords = busStopCoordinateData.get(toStop);
+      return [fromStopCoords, toStopCoords];
+    });
+    busIDCoordinates.set(key, stopCoordinates);
+  });
+  return busIDCoordinates;
 }
 
 // function processBusStopData(busData) {

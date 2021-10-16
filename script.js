@@ -67,8 +67,8 @@ async function build() {
   const p60RunCutData = runCutData.filter((d) => p60Buses.includes(d.busID));
   const p180RunCutData = runCutData.filter((d) => p180Buses.includes(d.busID));
 
-  console.log('p20 runcutdata');
-  console.log(p20RunCutData);
+  // console.log('p20 runcutdata');
+  // console.log(p20RunCutData);
   // console.log('p60 runcutdata');
   // console.log(p60RunCutData);
   // console.log('p180 runcutdata');
@@ -86,8 +86,8 @@ async function build() {
   // console.log(busStopGeoData);
 
   const busRouteGeoData = await d3.json('./data/BusRoutesProject.json');
-  console.log('bus route geo data');
-  console.log(busRouteGeoData);
+  // console.log('bus route geo data');
+  // console.log(busRouteGeoData);
 
   const TAZProjectionData = await d3.json('./data/TAZProject.json');
   // console.log('TAZ Projection Data');
@@ -101,11 +101,31 @@ async function build() {
   // console.log('p60 runcut data');
   // console.log(p60RunCutStops);
   const p180RunCutStops = processBusStopPath(p180RunCutData);
-  console.log('p180 runcut data');
+  // console.log('p180 runcut data');
   // console.log(p180RunCutStops);
 
   // Stop Coordinates
   const stopCoordinates = processBusStopCoordinateData(busStopGeoData);
+
+  // Bus Stops and Bus ID Mapping
+  const p20RunCutStopsCoordinates = busIDCoordinates(
+    p20RunCutStops,
+    stopCoordinates
+  );
+  // console.log('p20runcutstopscoordinates');
+  // console.log(p20RunCutStopsCoordinates);
+  const p60RunCutStopsCoordinates = busIDCoordinates(
+    p60RunCutStops,
+    stopCoordinates
+  );
+  // console.log('p60runcutstopscoordinates');
+  // console.log(p60RunCutStopsCoordinates);
+  const p180RunCutStopsCoordinates = busIDCoordinates(
+    p180RunCutStops,
+    stopCoordinates
+  );
+  // console.log('p180runcutstopscoordinates');
+  // console.log(p180RunCutStopsCoordinates);
 
   // PROCESS THE SUPPLEMENTARY DATA FOR THE TABLE AND CHARTS
   const marginalIncomeData = await d3.csv(
@@ -143,8 +163,8 @@ async function build() {
     SEData
   );
 
-  console.log('geographical statistics data');
-  console.log(geographicalStatistics);
+  // console.log('geographical statistics data');
+  // console.log(geographicalStatistics);
 
   // PROCESS THE SUPPLEMENTARY DATA FOR THE MAP
   const pollutionData = await d3.csv(
