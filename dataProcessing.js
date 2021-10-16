@@ -173,33 +173,29 @@ function processBusRouteLineData(busRouteGeoData) {
   return lineGeometry;
 }
 
+/**
+ * Function that maps bus IDs to the stops that are visited for a particular runcut file
+ * @param {*} runCutData - the runcut data for a particular optimization plan
+ * @param {*} busRouteGeoData - the geographic data associated with a unique bus route
+ * @returns - mapping of the busID to the to the bus route lines that are associated with a particular stop
+ */
 function busSequenceRoutes(runCutData, busRouteGeoData) {
-  // generate lines for unique bus abbreviations
+  // Get lines for unique bus abbreviations
   const lineRoutes = processBusRouteLineData(busRouteGeoData);
-  console.log('line routes');
-  console.log(lineRoutes);
   const busSequenceRoutes = new Map();
-
   runCutData.forEach((d) => {
     let busID = d.busID;
     let lineAbbr = d.lineAbbr;
     let lineGeometry = lineRoutes.get(lineAbbr);
-    let routes = busSequenceRoutes.get(busID);
     if (busSequenceRoutes.get(busID)) {
+      const routes = busSequenceRoutes.get(busID);
       routes.push(lineGeometry);
-      busSequenceRoutes.set(d.busID);
+      busSequenceRoutes.set(busID, routes);
     } else {
-      const linePath = [];
-      linePath.push(lineGeometry);
-      busSequenceRoutes.set(busID, linePath);
+      const routes = [];
+      routes.push(lineGeometry);
+      busSequenceRoutes.set(busID, routes);
     }
-    console.log('bus routes sequence');
-    console.log(busSequenceRoutes);
   });
-
-  // console.log('bus sequence routes');
-  // console.log(busSequenceRoutes);
-
-  console.log('the runcut data');
-  console.log(runCutData);
+  return busSequenceRoutes;
 }
