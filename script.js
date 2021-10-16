@@ -19,8 +19,11 @@ async function build() {
 
   // Processed plan data
   const p20BEBData = processPlanData(p20Data);
+  console.log("p20BEBDataaaaaaaaaaaaaa",p20BEBData)
   const p60BEBData = processPlanData(p60Data);
   const p180BEBData = processPlanData(p180Data);
+  console.log("p180BEBData",p180BEBData)
+
 
   // PROCESS THE RUNCUT DATA
 
@@ -71,17 +74,22 @@ async function build() {
 
   // Geographic Runcut Stop Data
   const p20RunCutStops = processBusStopPath(p20RunCutData);
+  console.log("p20RunCutStops",p20RunCutStops)
   const p60RunCutStops = processBusStopPath(p60RunCutData);
   const p180RunCutStops = processBusStopPath(p180RunCutData);
 
   // Stop Coordinates
   const stopCoordinates = processBusStopCoordinateData(busStopGeoData);
+  console.log("stopCoordinates",stopCoordinates)
 
   // Bus Stops and Bus ID Mapping
   const p20RunCutStopsCoordinates = busIDCoordinates(
     p20RunCutStops,
     stopCoordinates
   );
+
+  console.log(p20RunCutStopsCoordinates)
+
   const p60RunCutStopsCoordinates = busIDCoordinates(
     p60RunCutStops,
     stopCoordinates
@@ -95,6 +103,9 @@ async function build() {
     p20RunCutData,
     busRouteGeoData
   );
+
+  console.log("p20BusSequenceRoutes",p20BusSequenceRoutes)
+
   const p60BusSequenceRoutes = busSequenceRoutes(
     p60RunCutData,
     busRouteGeoData
@@ -152,9 +163,13 @@ build();
 
 // drawChart();
 
-// generate map view
+// // generate map view
 // let map = new busMap(TAZProjectionData, busRoutesData, busStopData);
 // map.drawMap();
+
+// generate map view
+let map = new busMap(p20BusSequenceRoutes);
+map.drawMap();
 
 // draw the plots
 let plots = new plotting(electricStatData, p60Data);
