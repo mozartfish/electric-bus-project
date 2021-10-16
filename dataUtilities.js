@@ -1,6 +1,7 @@
 /**
- * Function for processing raw bus data to represent electric bus data
+ *
  * @param {*} planData - the raw data for a bus plan
+ * @returns - data for the electric buses for a specific plan
  */
 function processPlanData(planData) {
   // console.log('called the process plan data function');
@@ -115,6 +116,8 @@ function processBusStopCoordinateData(busStopGeoData) {
     const stopName = feature.properties.StopName;
     stopCoordinates.set(stopName, coordinates);
   });
+
+  console.log('stop coordinates', stopCoordinates);
   return stopCoordinates;
 }
 

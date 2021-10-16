@@ -67,8 +67,8 @@ async function build() {
   const p60RunCutData = runCutData.filter((d) => p60Buses.includes(d.busID));
   const p180RunCutData = runCutData.filter((d) => p180Buses.includes(d.busID));
 
-  // console.log('p20 runcutdata');
-  // console.log(p20RunCutData);
+  console.log('p20 runcutdata');
+  console.log(p20RunCutData);
   // console.log('p60 runcutdata');
   // console.log(p60RunCutData);
   // console.log('p180 runcutdata');
@@ -86,8 +86,8 @@ async function build() {
   // console.log(busStopGeoData);
 
   const busRouteGeoData = await d3.json('./data/BusRoutesProject.json');
-  // console.log('bus route geo data');
-  // console.log(busRouteGeoData);
+  console.log('bus route geo data');
+  console.log(busRouteGeoData);
 
   const TAZProjectionData = await d3.json('./data/TAZProject.json');
   // console.log('TAZ Projection Data');
@@ -95,8 +95,14 @@ async function build() {
 
   // Geographic Runcut Stop Data
   const p20RunCutStops = processBusStopPath(p20RunCutData);
+  // console.log('p20 runcut data');
+  // console.log(p20RunCutStops);
   const p60RunCutStops = processBusStopPath(p60RunCutData);
+  // console.log('p60 runcut data');
+  // console.log(p60RunCutStops);
   const p180RunCutStops = processBusStopPath(p180RunCutData);
+  console.log('p180 runcut data');
+  // console.log(p180RunCutStops);
 
   // Stop Coordinates
   const stopCoordinates = processBusStopCoordinateData(busStopGeoData);
@@ -137,6 +143,9 @@ async function build() {
     SEData
   );
 
+  console.log('geographical statistics data');
+  console.log(geographicalStatistics);
+
   // PROCESS THE SUPPLEMENTARY DATA FOR THE MAP
   const pollutionData = await d3.csv(
     './data/3. Supplementary Data/7. Pollutant Concentration.csv'
@@ -152,7 +161,7 @@ async function build() {
 }
 
 // Create the visualization tool
-title();
+// title();
 
 build();
 
