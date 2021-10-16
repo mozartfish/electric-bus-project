@@ -3,9 +3,7 @@
  */
 
 // Test for ensuring the script is running properly in the browser
-// console.log('hello, world');
-
-async function drawChart() {
+async function build() {
   console.log('enter the build function');
 
   // PROCESS THE PLAN DATA
@@ -93,12 +91,18 @@ async function drawChart() {
     stopCoordinates
   );
 
-  console.log('p20 runcut data');
-  console.log(p20RunCutData);
-  console.log('plan data for p20');
-  console.log(p20Data);
-
-  busSequenceRoutes(p20RunCutData, busRouteGeoData);
+  const p20BusSequenceRoutes = busSequenceRoutes(
+    p20RunCutData,
+    busRouteGeoData
+  );
+  const p60BusSequenceRoutes = busSequenceRoutes(
+    p60RunCutData,
+    busRouteGeoData
+  );
+  const p180BusSequenceRoutes = busSequenceRoutes(
+    p180RunCutData,
+    busRouteGeoData
+  );
 
   // PROCESS THE SUPPLEMENTARY DATA FOR THE TABLE AND CHARTS
   const marginalIncomeData = await d3.csv(
@@ -140,6 +144,13 @@ async function drawChart() {
     './data/3. Supplementary Data/8. Ei_for_bus.csv'
   );
 }
+
+// Create the visualization tool
+// title();
+
+build();
+
+// drawChart();
 
 // generate map view
 // let map = new busMap(TAZProjectionData, busRoutesData, busStopData);
