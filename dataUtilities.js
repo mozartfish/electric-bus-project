@@ -4,8 +4,6 @@
  * @returns - data for the electric buses for a specific plan
  */
 function processPlanData(planData) {
-  // console.log('called the process plan data function');
-
   // Separate different parts of the bus data
   const busDistances = planData['Bus Distance'];
   const busChargeSequences = planData['Charge Sequence'];
@@ -58,11 +56,6 @@ function processPlanData(planData) {
   const updatedElectricBusID = electricBusID.filter((bus) =>
     chargeSequenceSet.has(bus)
   );
-
-  // CHECK THAT ALL THE SETS CONTAIN THE SAME NUMBER OF VALUES
-  // console.log('electric bus count: ', updatedElectricBusID.length);
-  // console.log('beb distance count: ', updatedBebDistances.length);
-  // console.log('charge sequence count: ', bebChargeSequences.length);
 
   // Object for representing processed data
   const BEBDistances = Object.fromEntries(updatedBebDistances);
@@ -149,14 +142,8 @@ function processGeographicalStatistics(marginalIncomeData, socialEquityData) {
  * @returns - bus ID to coordinates for the different routes for a particular bus
  */
 function busIDCoordinates(busStopSequenceData, busStopCoordinateData) {
-  // console.log('bus stop sequence data');
-  // console.log(busStopSequenceData);
-  // console.log('bus stop coordinate data');
-  // console.log(busStopCoordinateData);
-
   // create new map object for mapping bus ID to coordinates for stops
   const busIDCoordinates = new Map();
-
   busStopSequenceData.forEach((value, key) => {
     const stopCoordinates = value.map((stop) => {
       [fromStop, toStop] = stop;
@@ -169,16 +156,53 @@ function busIDCoordinates(busStopSequenceData, busStopCoordinateData) {
   return busIDCoordinates;
 }
 
-// function processBusStopData(busData) {
-//   const busDataFeatures = busData.features;
-//   const stopCoordinateMap = new Map();
-//   busDataFeatures.forEach((busFeature) => {
-//     const coordinates = busFeature.geometry.coordinates;
-//     const stopName = busFeature.properties.StopName;
-//     stopCoordinateMap.set(stopName, coordinates);
-//   });
-//   return stopCoordinateMap;
-// }
+/**
+ * Function that maps unique bus route line abbreviations to bus lines
+ * @param {*} busRouteGeoData - the raw bus route data
+ * @returns - mapping of the line abbreviation to the bus line
+ */
+function processBusRouteLineData(busRouteGeoData) {
+  const lineGeometry = new Map();
+  const geoFeatures = busRouteGeoData.features;
+  geoFeatures.forEach((feature) => {
+    const lineAbbr = feature.properties.LineAbbr;
+    const geometry = feature.geometry;
+    lineGeometry.set(lineAbbr, geometry);
+  });
+
+  return lineGeometry;
+}
+
+function busSequenceRoutes(runCutData, busRouteGeoData) {
+  // generate lines for unique bus abbreviations
+  const lineRoutes = processBusRouteLineData(busRouteGeoData);
+  console.log('line routes');
+  console.log(lineRoutes);
+  const busSequenceRoutes = new Map();
+
+  runCutData.forEach((d) => {
+    let busID = d.busID;
+    let lineAbbr = d.lineAbbr;
+    let lineGeometry = lineRoutes.get(lineAbbr);
+    let routes = busSequenceRoutes.get(busID);
+    if (busSequenceRoutes.get(busID)) {
+      routes.push(lineGeometry);
+      busSequenceRoutes.set(d.busID);
+    } else {
+      const linePath = [];
+      linePath.push(lineGeometry);
+      busSequenceRoutes.set(busID, linePath);
+    }
+    console.log('bus routes sequence');
+    console.log(busSequenceRoutes);
+  });
+
+  // console.log('bus sequence routes');
+  // console.log(busSequenceRoutes);
+
+  console.log('the runcut data');
+  console.log(runCutData);
+}
 
 // function mapStopCoordinates(busStopData, stopData) {
 //   // dictionary object for storing all the results of the coordinates associated with each bus stop for from and to

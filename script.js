@@ -21,12 +21,6 @@ async function build() {
   const p20BEBData = processPlanData(p20Data);
   const p60BEBData = processPlanData(p60Data);
   const p180BEBData = processPlanData(p180Data);
-  // console.log('Plan 20 data');
-  // console.log(p20BEBData);
-  // console.log('Plan 60 Data');
-  // console.log(p60BEBData);
-  // console.log('Plan 180 data');
-  // console.log(p180BEBData);
 
   // PROCESS THE RUNCUT DATA
 
@@ -67,42 +61,18 @@ async function build() {
   const p60RunCutData = runCutData.filter((d) => p60Buses.includes(d.busID));
   const p180RunCutData = runCutData.filter((d) => p180Buses.includes(d.busID));
 
-  // console.log('p20 runcutdata');
-  // console.log(p20RunCutData);
-  // console.log('p60 runcutdata');
-  // console.log(p60RunCutData);
-  // console.log('p180 runcutdata');
-  // console.log(p180RunCutData);
-
   // PROCESS GEOGRAPHIC DATA
   const potentialStopData = await d3.csv(
     './data/2. Deployment Plans/2. UTA_Runcut_Potential_Stop.csv'
   );
-  // console.log('potential stop data');
-  // console.log(potentialStopData);
-
   const busStopGeoData = await d3.json('data/BusStopsProject.json');
-  // console.log('bus stop geo data');
-  // console.log(busStopGeoData);
-
   const busRouteGeoData = await d3.json('./data/BusRoutesProject.json');
-  // console.log('bus route geo data');
-  // console.log(busRouteGeoData);
-
   const TAZProjectionData = await d3.json('./data/TAZProject.json');
-  // console.log('TAZ Projection Data');
-  // console.log(TAZProjectionData);
 
   // Geographic Runcut Stop Data
   const p20RunCutStops = processBusStopPath(p20RunCutData);
-  // console.log('p20 runcut data');
-  // console.log(p20RunCutStops);
   const p60RunCutStops = processBusStopPath(p60RunCutData);
-  // console.log('p60 runcut data');
-  // console.log(p60RunCutStops);
   const p180RunCutStops = processBusStopPath(p180RunCutData);
-  // console.log('p180 runcut data');
-  // console.log(p180RunCutStops);
 
   // Stop Coordinates
   const stopCoordinates = processBusStopCoordinateData(busStopGeoData);
@@ -112,20 +82,21 @@ async function build() {
     p20RunCutStops,
     stopCoordinates
   );
-  // console.log('p20runcutstopscoordinates');
-  // console.log(p20RunCutStopsCoordinates);
   const p60RunCutStopsCoordinates = busIDCoordinates(
     p60RunCutStops,
     stopCoordinates
   );
-  // console.log('p60runcutstopscoordinates');
-  // console.log(p60RunCutStopsCoordinates);
   const p180RunCutStopsCoordinates = busIDCoordinates(
     p180RunCutStops,
     stopCoordinates
   );
-  // console.log('p180runcutstopscoordinates');
-  // console.log(p180RunCutStopsCoordinates);
+
+  console.log('p20 runcut data');
+  console.log(p20RunCutData);
+  console.log('plan data for p20');
+  console.log(p20Data);
+
+  busSequenceRoutes(p20RunCutData, busRouteGeoData);
 
   // PROCESS THE SUPPLEMENTARY DATA FOR THE TABLE AND CHARTS
   const marginalIncomeData = await d3.csv(
@@ -141,10 +112,6 @@ async function build() {
       };
     }
   );
-
-  // console.log('marginal income data');
-  // console.log(marginalIncomeData);
-
   const SEData = await d3.csv(
     './data/3. Supplementary Data/6. SE_File_v83_SE19_Net19.csv',
     (d) => {
@@ -163,40 +130,18 @@ async function build() {
     SEData
   );
 
-  // console.log('geographical statistics data');
-  // console.log(geographicalStatistics);
-
   // PROCESS THE SUPPLEMENTARY DATA FOR THE MAP
   const pollutionData = await d3.csv(
     './data/3. Supplementary Data/7. Pollutant Concentration.csv'
   );
-  // console.log('pollution data');
-  // console.log(pollutionData);
-
   const electricStatData = await d3.csv(
     './data/3. Supplementary Data/8. Ei_for_bus.csv'
   );
-  // console.log('electricalStatisticsData');
-  // console.log(electricStatData);
 }
 
 // Create the visualization tool
 // title();
 
 build();
-
-// async function drawChart() {
-
-// //   // RUNCUT DATA PROCESSING
-
-// //   // Geographic data that maps a unique busID to the geographic information about a bus route and the coordinates associated with bus stops
-// //   const busRouteMap = processRouteData(runCutData, busRoutesData, busStopData);
-// //   console.log('busRouteMap', busRouteMap);
-
-// //   // Bus Routes Data
-// //   console.log('Bus Routes Data', busRoutesData);
-
-// //   // generate map view
-// }
 
 // drawChart();
