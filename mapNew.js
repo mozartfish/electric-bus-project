@@ -1,9 +1,9 @@
 class busMap {
-    constructor(p20BusSequenceRoutes) {
-      this.p20BusSequenceRoutes = p20BusSequenceRoutes;
-    }
+  constructor(p20BusSequenceRoutes) {
+    this.p20BusSequenceRoutes = p20BusSequenceRoutes;
+  }
 
-    // drawMap() {
+  drawMap() {
     //   // console.log('geoshape', this.geoShapeData);
     //   console.log('p20BusSequenceRoutessssssss', this.p20BusSequenceRoutes);
     //   // console.log('geopoint', this.geoPointData);
@@ -49,23 +49,23 @@ class busMap {
     //   const path = d3.geoPath().projection(projection);
     // console.log('the path', path);
 
-      // // create a d3.geoPath to convert GeoJSON to SVG
-      // const geoPath = d3.geoPath().projection(projection);
-      // console.log("features",this.geoShapeData.features);
-      // draw stuff on the map
+    // // create a d3.geoPath to convert GeoJSON to SVG
+    // const geoPath = d3.geoPath().projection(projection);
+    // console.log("features",this.geoShapeData.features);
+    // draw stuff on the map
     //   const tazFeatures = tazGroup
     //     .selectAll('path')
     //     .data(this.geoShapeData.features)
     //     .enter()
     //     .append('path');
-      //   .attr('stroke', 'black')
-      //   .attr('fill-opacity', 0.3);
-      // mapFeatures
-      //   .attr('fill-opacity', 0.3)
-      //   .attr('stroke', 'black')
-      //   .attr('z-index', 3000)
-      //   .attr('stroke-width', 1);
-      //console.log("tazFeatures", tazFeatures)
+    //   .attr('stroke', 'black')
+    //   .attr('fill-opacity', 0.3);
+    // mapFeatures
+    //   .attr('fill-opacity', 0.3)
+    //   .attr('stroke', 'black')
+    //   .attr('z-index', 3000)
+    //   .attr('stroke-width', 1);
+    //console.log("tazFeatures", tazFeatures)
 
     const routeFeatures = routeGroup
       .selectAll('path')
@@ -104,37 +104,36 @@ class busMap {
     //   map.on('zoomend', reset);
     //   reset();
 
-      const reset1 = () =>{
+    const reset1 = () => {
+      const bounds1 = path.bounds(this.p20BusSequenceRoutes);
 
-        const bounds1 = path.bounds(this.p20BusSequenceRoutes);
+      // console.log("bounds1", bounds1)
 
-        // console.log("bounds1", bounds1)
+      const topLeft1 = bounds1[0],
+        bottomRight1 = bounds1[1];
 
-        const topLeft1 = bounds1[0],
-          bottomRight1 = bounds1[1];
+      routeSVG
+        .attr('width', bottomRight1[0] - topLeft1[0])
+        .attr('height', bottomRight1[1] - topLeft1[1])
+        .style('left', topLeft1[0] + 'px')
+        .style('top', topLeft1[1] + 'px');
 
-        routeSVG
-          .attr('width', bottomRight1[0] - topLeft1[0])
-          .attr('height', bottomRight1[1] - topLeft1[1])
-          .style('left', topLeft1[0] + 'px')
-          .style('top', topLeft1[1] + 'px');
+      routeGroup.attr(
+        'transform',
+        'translate(' + -topLeft1[0] + ',' + -topLeft1[1] + ')'
+      );
 
-        routeGroup.attr('transform', 'translate(' + -topLeft1[0] + ',' + -topLeft1[1] + ')');
-
-        // initialize the path data
-        routeFeatures
+      // initialize the path data
+      routeFeatures
         .attr('d', path)
         .style('fill-opacity', 0.7)
         .attr('fill', 'none')
         .attr('stroke', 'green')
         .attr('stroke-width', 1);
+    };
 
-      }
-
-      // map.on('viewreset', reset);
-      map.on('zoomend', reset1);
-      reset1();
-
-    }
+    // map.on('viewreset', reset);
+    map.on('zoomend', reset1);
+    reset1();
   }
-
+}
