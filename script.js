@@ -91,10 +91,6 @@ async function build() {
     stopCoordinates
   );
 
-  console.log('p20 runcut data');
-  console.log(p20RunCutData);
-  console.log('plan data for p20');
-  console.log(p20Data);
 
   busSequenceRoutes(p20RunCutData, busRouteGeoData);
 

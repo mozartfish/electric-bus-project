@@ -173,99 +173,29 @@ function processBusRouteLineData(busRouteGeoData) {
   return lineGeometry;
 }
 
+/**
+ * Function that maps bus IDs to the stops that are visited for a particular runcut file
+ * @param {*} runCutData - the runcut data for a particular optimization plan
+ * @param {*} busRouteGeoData - the geographic data associated with a unique bus route
+ * @returns - mapping of the busID to the to the bus route lines that are associated with a particular stop
+ */
 function busSequenceRoutes(runCutData, busRouteGeoData) {
-  // generate lines for unique bus abbreviations
+  // Get lines for unique bus abbreviations
   const lineRoutes = processBusRouteLineData(busRouteGeoData);
-  console.log('line routes');
-  console.log(lineRoutes);
   const busSequenceRoutes = new Map();
-
   runCutData.forEach((d) => {
     let busID = d.busID;
     let lineAbbr = d.lineAbbr;
     let lineGeometry = lineRoutes.get(lineAbbr);
-    let routes = busSequenceRoutes.get(busID);
     if (busSequenceRoutes.get(busID)) {
+      const routes = busSequenceRoutes.get(busID);
       routes.push(lineGeometry);
-      busSequenceRoutes.set(d.busID);
+      busSequenceRoutes.set(busID, routes);
     } else {
-      const linePath = [];
-      linePath.push(lineGeometry);
-      busSequenceRoutes.set(busID, linePath);
+      const routes = [];
+      routes.push(lineGeometry);
+      busSequenceRoutes.set(busID, routes);
     }
-    console.log('bus routes sequence');
-    console.log(busSequenceRoutes);
   });
-
-  // console.log('bus sequence routes');
-  // console.log(busSequenceRoutes);
-
-  console.log('the runcut data');
-  console.log(runCutData);
+  return busSequenceRoutes;
 }
-
-// function mapStopCoordinates(busStopData, stopData) {
-//   // dictionary object for storing all the results of the coordinates associated with each bus stop for from and to
-//   const busCoordMap = new Map();
-
-//   // array containing all the information for the from and to stops
-//   const stopDataFeatures = stopData.features;
-
-//   // loop through each of the buses in the bus stop data and construct a new map
-//   busStopData.forEach((value, key) => {
-//     const busID = key;
-//     const busStops = value;
-//     const stopCoords = busStops.map((stop) => {
-//       // get from and to stop names
-//       [fromStop, toStop] = stop;
-
-//       // get the coordinates for the from and to stop
-//       const fromStopCoords = stopDataFeatures.find(
-//         (stop) => stop.properties.StopName === fromStop
-//       );
-//       const toStopCoords = stopDataFeatures.find(
-//         (stop) => stop.properties.StopName === toStop
-//       );
-
-//       // array for storing new coordinates
-//       const coords = [fromStopCoords, toStopCoords];
-//       return coords;
-//     });
-//     // update the coordinates
-//     busCoordMap.set(busID, stopCoords);
-//   });
-//   return busCoordMap;
-// }
-
-// function processRouteData(runCutData, routesData, stopData) {
-//   // get the array of information associated with the route. this data contains the line abbr
-//   const routeFeatures = routesData.features;
-
-//   // dictionary for storing the busID to route features
-//   const routeMap = new Map();
-
-//   // get the busRouteStops
-//   const busRouteStops = processBusMapStopData(runCutData);
-
-//   // get the coordinates for the from and to stop for every bus stop associated with a particular busID
-//   const busCoordMap = mapStopCoordinates(busRouteStops, stopData);
-
-//   // construct the information associated with the route, bus id, and coordinates
-//   runCutData.forEach((busObj) => {
-//     let busID = busObj.busID;
-//     let lineAbbr = busObj.lineAbbr;
-//     if (!routeMap.get(busID)) {
-//       const busLine = routeFeatures.find(
-//         (routes) => routes.properties.LineAbbr === lineAbbr
-//       );
-//       const busStops = busCoordMap.get(busID);
-//       const busStopInfo = {
-//         busLine: busLine,
-//         busStops: busStops,
-//       };
-//       routeMap.set(busID, busStopInfo);
-//     }
-//   });
-//   // console.log('the route geographical info', routeMap);
-//   return routeMap;
-// }
