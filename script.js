@@ -141,13 +141,12 @@ async function drawChart() {
   );
 }
 
-  // generate map view
-  // let map = new busMap(TAZProjectionData, busRoutesData, busStopData);
-  // map.drawMap();
+// generate map view
+// let map = new busMap(TAZProjectionData, busRoutesData, busStopData);
+// map.drawMap();
 
-  // draw the plots
-  let plots = new plotting(electricStatData, p60Data);
-  plots.drawPlots();
-}
+// draw the plots
+let plots = new plotting(electricStatData, p60Data);
+plots.drawPlots();
 
 drawChart();
