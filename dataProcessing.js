@@ -189,11 +189,11 @@ function busSequenceRoutes(runCutData, busRouteGeoData) {
     let lineGeometry = lineRoutes.get(lineAbbr);
     if (busSequenceRoutes.get(busID)) {
       const routes = busSequenceRoutes.get(busID);
-      routes.push(lineGeometry);
+      routes.push(lineAbbr);
       busSequenceRoutes.set(busID, routes);
     } else {
       const routes = [];
-      routes.push(lineGeometry);
+      routes.push(lineAbbr);
       busSequenceRoutes.set(busID, routes);
     }
   });

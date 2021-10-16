@@ -154,12 +154,47 @@ async function build() {
     './data/3. Supplementary Data/8. Ei_for_bus.csv'
   );
 
-  console.log('bus sequence data');
-  console.log(p20BusSequenceRoutes);
+  // console.log('bus sequence data');
+  // console.log(p20BusSequenceRoutes);
 
   // Build the map view
-  let map = new busMap(p20BusSequenceRoutes);
-  map.drawMap();
+  // let map = new busMap(p20BusSequenceRoutes);
+  // map.drawMap();
+
+  // runcut data for p20
+  console.log('p20 runcut data');
+  console.log(p20BEBData);
+  console.log(p20Data);
+  console.log(p20RunCutData);
+
+  console.log('routes data');
+  console.log(busRouteGeoData);
+  // console.log('bus route data for p20');
+  // console.log(p20BusSequenceRoutes);
+
+  const foo = new Map();
+  const routesFeatures = busRouteGeoData.features;
+  console.log('routes features', routesFeatures);
+  // routesFeatures.forEach((feature) => {
+  //   console.log(feature.properties);
+  // });
+  p20BusSequenceRoutes.forEach((value, key) => {
+    // console.log('bus ID', key);
+    console.log('line abbr', value);
+    const bar = routesFeatures.map((d) => {
+      if (value.includes(d.properties.LineAbbr)) {
+        return d;
+      }
+    });
+    foo.set(key, bar);
+    // foo.set(key, uniqueRouteFeatures);
+  });
+
+  console.log('data map');
+  console.log(foo);
+
+  console.log('route objects');
+  console.log(foo);
 }
 
 // Create the visualization tool
@@ -173,7 +208,7 @@ async function build() {
 build();
 
 // DO NOT USE CODE UNDER BUILD (IT WILL NOT WORK AND CRASH)
-// 
+//
 // drawChart();
 
 // // generate map view
