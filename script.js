@@ -91,8 +91,18 @@ async function build() {
     stopCoordinates
   );
 
-
-  busSequenceRoutes(p20RunCutData, busRouteGeoData);
+  const p20BusSequenceRoutes = busSequenceRoutes(
+    p20RunCutData,
+    busRouteGeoData
+  );
+  const p60BusSequenceRoutes = busSequenceRoutes(
+    p60RunCutData,
+    busRouteGeoData
+  );
+  const p180BusSequenceRoutes = busSequenceRoutes(
+    p180RunCutData,
+    busRouteGeoData
+  );
 
   // PROCESS THE SUPPLEMENTARY DATA FOR THE TABLE AND CHARTS
   const marginalIncomeData = await d3.csv(
