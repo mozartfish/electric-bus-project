@@ -193,40 +193,67 @@ function processBusRouteLineData(runCutData, busRouteGeoData) {
   busSequenceLines.forEach((value, key) => {
     let busID = key;
     let busLineAbbr = value;
-    const routeFeatures = busRouteGeoDataFeatures.filter((d) => {
-      return busLineAbbr.includes(d.properties.LineAbbr);
+    let featureList = [];
+    busLineAbbr.forEach((abbr) => {
+      const routeGeometry = busRouteGeoDataFeatures.find(
+        (d) => d.properties.LineAbbr === abbr
+      );
+      featureList.push(routeGeometry);
     });
-    busRouteLineSequence.set(busID, routeFeatures);
+    busRouteLineSequence.set(busID, featureList);
   });
   return busRouteLineSequence;
 }
 
+/**
+ * Function that converts fromStops and toStops to a single array containing all the stops for a particular bus
+ * @param {*} runCutStopData - the raw unprocessed fromStop and toStop Data
+ * @returns - mapping of buses to array of stops for a particular bus sequence
+ */
+function processStopSequences(runCutStopData) {
+  const stopSequences = new Map();
+  runCutStopData.forEach((value, key) => {
+    let busID = key;
+    let stops = value;
+    let stopSequence = [];
+    stops.forEach((stop, i) => {
+      let fromStop = stop[0];
+      let toStop = stop[1];
+      if (i == 0) {
+        stopSequence.push(fromStop);
+      } else {
+        stopSequence.push(toStop);
+      }
+    });
+    stopSequences.set(busID, stopSequence);
+  });
 
-// /**
-//  * Function that maps bus IDs to the stops that are visited for a particular runcut file
-//  * @param {*} runCutData - the runcut data for a particular optimization plan
-//  * @param {*} busRouteGeoData - the geographic data associated with a unique bus route
-//  * @returns - mapping of the busID to the to the bus route lines that are associated with a particular stop
-//  */
-// function busSequenceRoutes(runCutData, busRouteGeoData) {
-//   // Get lines for unique bus abbreviations
-//   const lineRoutes = processBusRouteLineData(busRouteGeoData);
-//   console.log('line routes data');
-//   console.log(lineRoutes);
-// const busSequenceRoutes = new Map();
-// runCutData.forEach((d) => {
-//   let busID = d.busID;
-//   let lineAbbr = d.lineAbbr;
-//   let lineGeometry = lineRoutes.get(lineAbbr);
-//   if (busSequenceRoutes.get(busID)) {
-//     const routes = busSequenceRoutes.get(busID);
-//     routes.push(lineGeometry);
-//     busSequenceRoutes.set(busID, routes);
-//   } else {
-//     const routes = [];
-//     routes.push(lineGeometry);
-//     busSequenceRoutes.set(busID, routes);
-//   }
-// });
-// return busSequenceRoutes;
-// }
+  return stopSequences;
+}
+
+/**
+ *
+ * @param {*} runCutStopData - the raw runcut data for a particular optimization plan
+ * @param {*} busStopGeoData - the geo data associated with the bus stops
+ * @returns - maps the bus to stop geometry
+ */
+function processBusStopData(runCutStopData, busStopGeoData) {
+  const processStops = processStopSequences(runCutStopData);
+  const busStopGeoDataFeatures = busStopGeoData.features;
+  const busStopSequence = new Map();
+  console.log('processStops: ', processStops);
+  processStops.forEach((value, key) => {
+    let busID = key;
+    let busStops = value;
+    let stopList = [];
+    busStops.forEach((stop) => {
+      const stopGeometry = busStopGeoDataFeatures.find(
+        (d) => d.properties.StopName === stop
+      );
+      stopList.push(stopGeometry);
+    });
+    busStopSequence.set(busID, stopList);
+  });
+
+  return busStopSequence;
+}

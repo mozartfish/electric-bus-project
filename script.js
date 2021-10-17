@@ -138,6 +138,13 @@ async function build() {
     busRouteGeoData
   );
 
+  // STOP GEOMETRY DATA
+  const p20StopGeometry = processBusStopData(p20RunCutStops, busStopGeoData);
+  const p60StopGeometry = processBusStopData(p60RunCutStops, busStopGeoData);
+  const p180StopGeometry = processBusStopData(p180RunCutStops, busStopGeoData);
+
+  // Charging Station Geometry
+
   // GEOGRAPHICAL STATISTICAL DATA
   const geographicalStatistics = processGeographicalStatistics(
     marginalIncomeData,
