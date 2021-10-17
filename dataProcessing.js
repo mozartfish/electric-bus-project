@@ -157,45 +157,91 @@ function busIDCoordinates(busStopSequenceData, busStopCoordinateData) {
 }
 
 /**
- * Function that maps unique bus route line abbreviations to bus lines
- * @param {*} busRouteGeoData - the raw bus route data
- * @returns - mapping of the line abbreviation to the bus line
+ * Function that maps bus sequence for a unique bus to the line abbreviations used for the different stops
+ * @param {*} runCutData - the raw data for a particular optimization plan
+ * @returns - mapping of the bus sequence line abbreviation to the unique bus
  */
-function processBusRouteLineData(busRouteGeoData) {
-  const lineGeometry = new Map();
-  const geoFeatures = busRouteGeoData.features;
-  geoFeatures.forEach((feature) => {
-    const lineAbbr = feature.properties.LineAbbr;
-    const geometry = feature.geometry;
-    lineGeometry.set(lineAbbr, geometry);
+function busSequenceLineAbbr(runCutData) {
+  const busLineAbbr = new Map();
+  runCutData.forEach((bus) => {
+    let busID = bus.busID;
+    let lineAbbr = bus.lineAbbr;
+    if (busLineAbbr.get(busID)) {
+      const busSequence = busLineAbbr.get(busID);
+      busSequence.push(lineAbbr);
+      busLineAbbr.set(busID, busSequence);
+    } else {
+      const busSequence = [];
+      busSequence.push(lineAbbr);
+      busLineAbbr.set(busID, busSequence);
+    }
   });
-
-  return lineGeometry;
+  return busLineAbbr;
 }
 
 /**
- * Function that maps bus IDs to the stops that are visited for a particular runcut file
- * @param {*} runCutData - the runcut data for a particular optimization plan
- * @param {*} busRouteGeoData - the geographic data associated with a unique bus route
- * @returns - mapping of the busID to the to the bus route lines that are associated with a particular stop
+ * Function that creates a mapping between the unique buses in a runcut file and the line route geometry
+ * @param {*} runCutData - the raw data associated with a particular optimization plan
+ * @param {*} busRouteGeoData - the geodata associated with the bus route
+ * @returns - mapping of bus sequence data to bus route line geometry data
  */
-function busSequenceRoutes(runCutData, busRouteGeoData) {
-  // Get lines for unique bus abbreviations
-  const lineRoutes = processBusRouteLineData(busRouteGeoData);
-  const busSequenceRoutes = new Map();
-  runCutData.forEach((d) => {
-    let busID = d.busID;
-    let lineAbbr = d.lineAbbr;
-    let lineGeometry = lineRoutes.get(lineAbbr);
-    if (busSequenceRoutes.get(busID)) {
-      const routes = busSequenceRoutes.get(busID);
-      routes.push(lineAbbr);
-      busSequenceRoutes.set(busID, routes);
-    } else {
-      const routes = [];
-      routes.push(lineAbbr);
-      busSequenceRoutes.set(busID, routes);
-    }
+function processBusRouteLineData(runCutData, busRouteGeoData) {
+  const busSequenceLines = busSequenceLineAbbr(runCutData);
+  const busRouteGeoDataFeatures = busRouteGeoData.features;
+  const busRouteLineSequence = new Map();
+  busSequenceLines.forEach((value, key) => {
+    let busID = key;
+    let busLineAbbr = value;
+    const routeFeatures = busRouteGeoDataFeatures.filter((d) => {
+      return busLineAbbr.includes(d.properties.LineAbbr);
+    });
+    busRouteLineSequence.set(busID, routeFeatures);
   });
-  return busSequenceRoutes;
+  return busRouteLineSequence;
 }
+
+// /**
+//  * Function that maps unique bus route line abbreviations to bus lines
+//  * @param {*} busRouteGeoData - the raw bus route data
+//  * @returns - mapping of the line abbreviation to the bus line
+//  */
+// function processBusRouteLineData(busRouteGeoData) {
+//   const lineGeometry = new Map();
+//   const geoFeatures = busRouteGeoData.features;
+//   geoFeatures.forEach((feature) => {
+//     const lineAbbr = feature.properties.LineAbbr;
+//     const geometry = feature.geometry;
+//     lineGeometry.set(lineAbbr, geometry);
+//   });
+
+//   return lineGeometry;
+// }
+
+// /**
+//  * Function that maps bus IDs to the stops that are visited for a particular runcut file
+//  * @param {*} runCutData - the runcut data for a particular optimization plan
+//  * @param {*} busRouteGeoData - the geographic data associated with a unique bus route
+//  * @returns - mapping of the busID to the to the bus route lines that are associated with a particular stop
+//  */
+// function busSequenceRoutes(runCutData, busRouteGeoData) {
+//   // Get lines for unique bus abbreviations
+//   const lineRoutes = processBusRouteLineData(busRouteGeoData);
+//   console.log('line routes data');
+//   console.log(lineRoutes);
+// const busSequenceRoutes = new Map();
+// runCutData.forEach((d) => {
+//   let busID = d.busID;
+//   let lineAbbr = d.lineAbbr;
+//   let lineGeometry = lineRoutes.get(lineAbbr);
+//   if (busSequenceRoutes.get(busID)) {
+//     const routes = busSequenceRoutes.get(busID);
+//     routes.push(lineGeometry);
+//     busSequenceRoutes.set(busID, routes);
+//   } else {
+//     const routes = [];
+//     routes.push(lineGeometry);
+//     busSequenceRoutes.set(busID, routes);
+//   }
+// });
+// return busSequenceRoutes;
+// }
