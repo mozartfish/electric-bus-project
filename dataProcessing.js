@@ -71,6 +71,7 @@ function processPlanData(planData) {
 
   return bebPlan;
 }
+
 /**
  * Function that takes the runcut data for an optimization plan
  * and generates a mapping of the buses to their stop names
@@ -200,22 +201,6 @@ function processBusRouteLineData(runCutData, busRouteGeoData) {
   return busRouteLineSequence;
 }
 
-// /**
-//  * Function that maps unique bus route line abbreviations to bus lines
-//  * @param {*} busRouteGeoData - the raw bus route data
-//  * @returns - mapping of the line abbreviation to the bus line
-//  */
-// function processBusRouteLineData(busRouteGeoData) {
-//   const lineGeometry = new Map();
-//   const geoFeatures = busRouteGeoData.features;
-//   geoFeatures.forEach((feature) => {
-//     const lineAbbr = feature.properties.LineAbbr;
-//     const geometry = feature.geometry;
-//     lineGeometry.set(lineAbbr, geometry);
-//   });
-
-//   return lineGeometry;
-// }
 
 // /**
 //  * Function that maps bus IDs to the stops that are visited for a particular runcut file

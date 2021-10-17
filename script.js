@@ -6,7 +6,7 @@
 async function build() {
   console.log('enter the build function');
 
-  // PROCESS THE PLAN DATA
+  // LOAD PLAN DATA
   const p20Data = await d3.json(
     './data/2. Deployment Plans/1. Solutions/p20.json'
   );
@@ -17,15 +17,15 @@ async function build() {
     './data/2. Deployment Plans/1. Solutions/p180.json'
   );
 
-  // Processed plan data
-  const p20BEBData = processPlanData(p20Data);
-  // console.log("p20BEBDataaaaaaaaaaaaaa",p20BEBData)
-  const p60BEBData = processPlanData(p60Data);
-  const p180BEBData = processPlanData(p180Data);
-  // console.log("p180BEBData",p180BEBData)
+  // LOAD GEOGRAPHIC DATA
+  const potentialStopData = await d3.csv(
+    './data/2. Deployment Plans/2. UTA_Runcut_Potential_Stop.csv'
+  );
+  const busStopGeoData = await d3.json('data/BusStopsProject.json');
+  const busRouteGeoData = await d3.json('./data/BusRoutesProject.json');
+  const TAZProjectionData = await d3.json('./data/TAZProject.json');
 
-  // PROCESS THE RUNCUT DATA
-
+  // LOAD RUNCUT DATA
   // Variables for keeping track of the current bus sequences for a particular bus
   let currentBusID = '';
   let currentSequence = 0;
@@ -53,66 +53,7 @@ async function build() {
     }
   );
 
-  // Electric buses associated with each plan
-  const p20Buses = p20BEBData['Electric Buses'];
-  const p60Buses = p60BEBData['Electric Buses'];
-  const p180Buses = p180BEBData['Electric Buses'];
-
-  // Runcut data for each plan
-  const p20RunCutData = runCutData.filter((d) => p20Buses.includes(d.busID));
-  const p60RunCutData = runCutData.filter((d) => p60Buses.includes(d.busID));
-  const p180RunCutData = runCutData.filter((d) => p180Buses.includes(d.busID));
-
-  // PROCESS GEOGRAPHIC DATA
-  const potentialStopData = await d3.csv(
-    './data/2. Deployment Plans/2. UTA_Runcut_Potential_Stop.csv'
-  );
-  const busStopGeoData = await d3.json('data/BusStopsProject.json');
-  const busRouteGeoData = await d3.json('./data/BusRoutesProject.json');
-  const TAZProjectionData = await d3.json('./data/TAZProject.json');
-
-  // Geographic Runcut Stop Data
-  const p20RunCutStops = processBusStopPath(p20RunCutData);
-  // console.log("p20RunCutStops",p20RunCutStops)
-  const p60RunCutStops = processBusStopPath(p60RunCutData);
-  const p180RunCutStops = processBusStopPath(p180RunCutData);
-
-  // Stop Coordinates
-  const stopCoordinates = processBusStopCoordinateData(busStopGeoData);
-  // console.log("stopCoordinates",stopCoordinates)
-
-  // Bus Stops and Bus ID Mapping
-  const p20RunCutStopsCoordinates = busIDCoordinates(
-    p20RunCutStops,
-    stopCoordinates
-  );
-
-  // console.log(p20RunCutStopsCoordinates)
-
-  const p60RunCutStopsCoordinates = busIDCoordinates(
-    p60RunCutStops,
-    stopCoordinates
-  );
-  const p180RunCutStopsCoordinates = busIDCoordinates(
-    p180RunCutStops,
-    stopCoordinates
-  );
-
-  // PROCESS BUS ROUTE LINE DATA
-  const p20BusRouteGeometry = processBusRouteLineData(
-    p20RunCutData,
-    busRouteGeoData
-  );
-  const p60BusRouteGeometry = processBusRouteLineData(
-    p60RunCutData,
-    busRouteGeoData
-  );
-  const p180BusRouteGeometry = processBusRouteLineData(
-    p180RunCutData,
-    busRouteGeoData
-  );
-
-  // PROCESS THE SUPPLEMENTARY DATA FOR THE TABLE AND CHARTS
+  // LOAD SUPPLEMENTARY DATA
   const marginalIncomeData = await d3.csv(
     './data/3. Supplementary Data/5. Marginal_Income.csv',
     (d) => {
@@ -138,18 +79,69 @@ async function build() {
       };
     }
   );
-
-  const geographicalStatistics = processGeographicalStatistics(
-    marginalIncomeData,
-    SEData
-  );
-
-  // PROCESS THE SUPPLEMENTARY DATA FOR THE MAP
   const pollutionData = await d3.csv(
     './data/3. Supplementary Data/7. Pollutant Concentration.csv'
   );
   const electricStatData = await d3.csv(
     './data/3. Supplementary Data/8. Ei_for_bus.csv'
+  );
+
+  // PROCESS ELECTRIC BUS DATA
+  const p20BEBData = processPlanData(p20Data);
+  const p60BEBData = processPlanData(p60Data);
+  const p180BEBData = processPlanData(p180Data);
+
+  // ELECTRIC BUSES FOR EACH PLAN
+  const p20Buses = p20BEBData['Electric Buses'];
+  const p60Buses = p60BEBData['Electric Buses'];
+  const p180Buses = p180BEBData['Electric Buses'];
+
+  // RUNCUT DATA FOR EACH PLAN
+  const p20RunCutData = runCutData.filter((d) => p20Buses.includes(d.busID));
+  const p60RunCutData = runCutData.filter((d) => p60Buses.includes(d.busID));
+  const p180RunCutData = runCutData.filter((d) => p180Buses.includes(d.busID));
+
+  // RUNCUT STOP DATA
+  const p20RunCutStops = processBusStopPath(p20RunCutData);
+  const p60RunCutStops = processBusStopPath(p60RunCutData);
+  const p180RunCutStops = processBusStopPath(p180RunCutData);
+
+  // STOP COORDINATE DATA
+  const stopCoordinates = processBusStopCoordinateData(busStopGeoData);
+
+  // BUS STOP + BUS ID COORDINATE DATA
+  const p20RunCutStopsCoordinates = busIDCoordinates(
+    p20RunCutStops,
+    stopCoordinates
+  );
+  const p60RunCutStopsCoordinates = busIDCoordinates(
+    p60RunCutStops,
+    stopCoordinates
+  );
+  const p180RunCutStopsCoordinates = busIDCoordinates(
+    p180RunCutStops,
+    stopCoordinates
+  );
+
+  // ROUTE GEOMETRY DATA
+  const p20BusRouteGeometry = processBusRouteLineData(
+    p20RunCutData,
+    busRouteGeoData
+  );
+
+  const p60BusRouteGeometry = processBusRouteLineData(
+    p60RunCutData,
+    busRouteGeoData
+  );
+  const p180BusRouteGeometry = processBusRouteLineData(
+    p180RunCutData,
+    busRouteGeoData
+  );
+
+  // GEOGRAPHICAL STATISTICAL DATA
+  const geographicalStatistics = processGeographicalStatistics(
+    marginalIncomeData,
+    SEData
   );
 }
 
