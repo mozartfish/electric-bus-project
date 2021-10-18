@@ -21,7 +21,8 @@ async function build() {
   const potentialStopData = await d3.csv(
     './data/2. Deployment Plans/2. UTA_Runcut_Potential_Stop.csv'
   );
-  const busStopGeoData = await d3.json('data/BusStopsProject.json');
+  const busStopGeoData = await d3.json('data/BusStopsProject1.json');
+  console.log("bus stop geo data raw", busStopGeoData)
   const busRouteGeoData = await d3.json('./data/BusRoutesProject.json');
   const TAZProjectionData = await d3.json('./data/TAZProject.json');
 
@@ -143,8 +144,8 @@ async function build() {
   const p60StopGeometry = processBusStopData(p60RunCutStops, busStopGeoData);
   const p180StopGeometry = processBusStopData(p180RunCutStops, busStopGeoData);
 
-  // console.log('p20 stop geometry');
-  // console.log(p20StopGeometry);
+  console.log('p20 stop geometry');
+  console.log(p20StopGeometry);
   // console.log('p60 stop geometry');
   // console.log(p60StopGeometry);
   // console.log('p180 stop geometry');
@@ -155,6 +156,7 @@ async function build() {
     p180RunCutStops,
     busStopGeoData
   );
+  console.log("p180 missing stops",p180MissingStops)
   const p60MissingStops = processMissingBusStops(
     p60RunCutStops,
     busStopGeoData
