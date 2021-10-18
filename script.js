@@ -138,12 +138,27 @@ async function build() {
     busRouteGeoData
   );
 
+  // console.log('p20 route geometry');
+  // console.log(p20BusRouteGeometry);
+  // console.log('p60 route geometry');
+  // console.log(p60BusRouteGeometry);
+  // console.log('p180 route geometry');
+  // console.log(p180BusRouteGeometry);
+
   // STOP GEOMETRY DATA
   const p20StopGeometry = processBusStopData(p20RunCutStops, busStopGeoData);
   const p60StopGeometry = processBusStopData(p60RunCutStops, busStopGeoData);
   const p180StopGeometry = processBusStopData(p180RunCutStops, busStopGeoData);
 
-  // Charging Station Geometry
+  // console.log('p20 stop geometry');
+  // console.log(p20StopGeometry);
+  // console.log('p60 stop geometry');
+  // console.log(p60StopGeometry);
+  // console.log('p180 stop geometry');
+  // console.log(p180StopGeometry);
+
+  // CHARGE STATION GEOMETRY
+  console.log(p20BEBData);
 
   // GEOGRAPHICAL STATISTICAL DATA
   const geographicalStatistics = processGeographicalStatistics(

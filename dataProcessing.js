@@ -241,7 +241,6 @@ function processBusStopData(runCutStopData, busStopGeoData) {
   const processStops = processStopSequences(runCutStopData);
   const busStopGeoDataFeatures = busStopGeoData.features;
   const busStopSequence = new Map();
-  console.log('processStops: ', processStops);
   processStops.forEach((value, key) => {
     let busID = key;
     let busStops = value;
