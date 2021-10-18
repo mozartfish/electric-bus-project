@@ -158,7 +158,28 @@ async function build() {
   // console.log(p180StopGeometry);
 
   // CHARGE STATION GEOMETRY
-  console.log(p20BEBData);
+  const p20ChargeGeometry = processChargeStationSequence(
+    p20BEBData,
+    potentialStopData,
+    busStopGeoData
+  );
+  const p60ChargeGeometry = processChargeStationSequence(
+    p60BEBData,
+    potentialStopData,
+    busStopGeoData
+  );
+  const p180ChargeGeometry = processChargeStationSequence(
+    p180BEBData,
+    potentialStopData,
+    busStopGeoData
+  );
+
+  console.log('p20 charge geometry');
+  console.log(p20ChargeGeometry);
+  console.log('p60 charge geometry');
+  console.log(p60ChargeGeometry);
+  console.log('p180 charge geometry');
+  console.log(p180ChargeGeometry);
 
   // GEOGRAPHICAL STATISTICAL DATA
   const geographicalStatistics = processGeographicalStatistics(

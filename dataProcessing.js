@@ -256,3 +256,48 @@ function processBusStopData(runCutStopData, busStopGeoData) {
 
   return busStopSequence;
 }
+
+/**
+ * Function that takes electric bus runcut data and returns the bus stop names associated with the active charging stations
+ * @param {*} electricRunCutData - the raw runcut data associated with an electric bus for a particular optimization plan
+ * @param {*} potentialStopData - data that maps the unique bus stop id with the stop name
+ */
+function processChargeStations(electricRunCutData, potentialStopData) {
+  const chargeStations = Object.entries(electricRunCutData['Charge Stations']);
+  const activeStations = [];
+  chargeStations.forEach((chargeStation) => {
+    let station = chargeStation[0];
+    let stationActivity = chargeStation[1];
+    if (stationActivity !== 0) {
+      activeStations.push(station);
+    }
+  });
+  const stops = potentialStopData.filter((d) => {
+    return activeStations.includes(d.stop_id);
+  });
+  const stopNameList = stops.map((d) => d.stop_name);
+  return stopNameList;
+}
+
+/**
+ * Function that returns a list of the geometries associated with an active charging stop
+ * @param {*} electricRunCutData - the raw runcut data for electric buses associated with a particular optimization plan
+ * @param {*} potentialStopData - data mapping a stopID with a stop name
+ * @param {*} busStopGeoData  - geo data for bus stops
+ * @returns - returns a list of all the geometries for charging stations
+ */
+function processChargeStationSequence(
+  electricRunCutData,
+  potentialStopData,
+  busStopGeoData
+) {
+  const stopNames = processChargeStations(
+    electricRunCutData,
+    potentialStopData
+  );
+  const busStopGeoDataFeatures = busStopGeoData.features;
+  const stopGeometry = busStopGeoDataFeatures.filter((d) =>
+    stopNames.includes(d.properties.StopName)
+  );
+  return stopGeometry;
+}
