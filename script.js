@@ -138,13 +138,6 @@ async function build() {
     busRouteGeoData
   );
 
-  // console.log('p20 route geometry');
-  // console.log(p20BusRouteGeometry);
-  // console.log('p60 route geometry');
-  // console.log(p60BusRouteGeometry);
-  // console.log('p180 route geometry');
-  // console.log(p180BusRouteGeometry);
-
   // STOP GEOMETRY DATA
   const p20StopGeometry = processBusStopData(p20RunCutStops, busStopGeoData);
   const p60StopGeometry = processBusStopData(p60RunCutStops, busStopGeoData);
@@ -156,6 +149,27 @@ async function build() {
   // console.log(p60StopGeometry);
   // console.log('p180 stop geometry');
   // console.log(p180StopGeometry);
+
+  // MISSING STOP GEOMETRY (STOP NAMES)
+  const p180MissingStops = processMissingBusStops(
+    p180RunCutStops,
+    busStopGeoData
+  );
+  const p60MissingStops = processMissingBusStops(
+    p60RunCutStops,
+    busStopGeoData
+  );
+  const p20MissingStops = processMissingBusStops(
+    p20RunCutStops,
+    busStopGeoData
+  );
+
+  console.log('missing stop geometry p20');
+  console.log(p20MissingStops);
+  console.log('missing stop geometry p60');
+  console.log(p60MissingStops);
+  console.log('missing stop geometry p180');
+  console.log(p180MissingStops);
 
   // CHARGE STATION GEOMETRY
   const p20ChargeGeometry = processChargeStationSequence(
@@ -174,12 +188,18 @@ async function build() {
     busStopGeoData
   );
 
-  console.log('p20 charge geometry');
-  console.log(p20ChargeGeometry);
-  console.log('p60 charge geometry');
-  console.log(p60ChargeGeometry);
-  console.log('p180 charge geometry');
-  console.log(p180ChargeGeometry);
+  // console.log('p20 charge geometry');
+  // console.log(p20ChargeGeometry);
+  // console.log('p60 charge geometry');
+  // console.log(p60ChargeGeometry);
+  // console.log('p180 charge geometry');
+  // console.log(p180ChargeGeometry);
+
+  // console.log('p20 beb data');
+  // console.log(p20BEBData);
+  // console.log('p60 beb data');
+  // console.log(p60BEBData);
+  // console.log(p20RunCutData);
 
   // GEOGRAPHICAL STATISTICAL DATA
   const geographicalStatistics = processGeographicalStatistics(

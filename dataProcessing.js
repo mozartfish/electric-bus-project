@@ -258,6 +258,30 @@ function processBusStopData(runCutStopData, busStopGeoData) {
 }
 
 /**
+ * Function that finds the missing stop names for a runcut file
+ * @param {*} runCutStopData - the data associated with the runcut data for a particular optimization plan
+ * @param {*} busStopGeoData - the geo data for the bus stops
+ * @returns - set containing the names of all the stops who do not have any coordinate geometry
+ */
+function processMissingBusStops(runCutStopData, busStopGeoData) {
+  const missingStops = new Set();
+  const processStops = processStopSequences(runCutStopData);
+  const busStopGeoDataFeatures = busStopGeoData.features;
+  processStops.forEach((value) => {
+    let busStops = value;
+    busStops.forEach((stop) => {
+      const stopGeometry = busStopGeoDataFeatures.find(
+        (d) => d.properties.StopName === stop
+      );
+      if (stopGeometry === undefined) {
+        missingStops.add(stop);
+      }
+    });
+  });
+  return missingStops;
+}
+
+/**
  * Function that takes electric bus runcut data and returns the bus stop names associated with the active charging stations
  * @param {*} electricRunCutData - the raw runcut data associated with an electric bus for a particular optimization plan
  * @param {*} potentialStopData - data that maps the unique bus stop id with the stop name
