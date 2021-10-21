@@ -174,12 +174,12 @@ async function build() {
     busStopGeoData
   );
 
-  console.log('p20 charge geometry');
-  console.log(p20ChargeGeometry);
-  console.log('p60 charge geometry');
-  console.log(p60ChargeGeometry);
-  console.log('p180 charge geometry');
-  console.log(p180ChargeGeometry);
+  // console.log('p20 charge geometry');
+  // console.log(p20ChargeGeometry);
+  // console.log('p60 charge geometry');
+  // console.log(p60ChargeGeometry);
+  // console.log('p180 charge geometry');
+  // console.log(p180ChargeGeometry);
 
   // GEOGRAPHICAL STATISTICAL DATA
   const geographicalStatistics = processGeographicalStatistics(
