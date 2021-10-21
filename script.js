@@ -186,16 +186,11 @@ async function build() {
     marginalIncomeData,
     SEData
   );
+
+  hello();
 }
-
-// Create the visualization tool
-// title();
-
-// generate map view
-
-// let map = new busMap(p20BusSequenceRoutes);
-// map.drawMap();
-
 build();
 
-
+function hello() {
+  console.log('hello, world');
+}
