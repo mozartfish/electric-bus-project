@@ -79,6 +79,7 @@ async function build() {
       };
     }
   );
+
   const pollutionData = await d3.csv(
     './data/3. Supplementary Data/7. Pollutant Concentration.csv'
   );
@@ -90,6 +91,9 @@ async function build() {
   const p20BEBData = processPlanData(p20Data);
   const p60BEBData = processPlanData(p60Data);
   const p180BEBData = processPlanData(p180Data);
+
+  // console.log('p20 beb data');
+  // console.log(p20BEBData);
 
   // ELECTRIC BUSES FOR EACH PLAN
   const p20Buses = p20BEBData['Electric Buses'];
@@ -187,10 +191,17 @@ async function build() {
     SEData
   );
 
+  // create the functions to handle the data data updates
+  let btable = new busTable(p20BEBData);
+  btable.drawTable();
+
   hello();
 }
 build();
 
 function hello() {
-  console.log('hello, world');
+  d3.select('#dataset-selection').on('change', function () {
+    let value = d3.select('#dataset-selection').node().value;
+    console.log('selection', value);
+  });
 }
