@@ -1,7 +1,7 @@
-@font-face {
+/* @font-face {
   font-family: 'Inter var';
   src: url('./../../../Inter.var.woff2');
-}
+} */
 
 #bus-table {
   display: flex;
@@ -13,6 +13,7 @@
   font-size: 16px;
   color: #34495e;
   background: #f8f9fa;
+
 }
 
 table {
