@@ -20,10 +20,8 @@ class busTable {
       let busID = bus[0];
       let distances = bus[1];
       const maxDistance = Number.parseFloat(d3.sum(distances)).toFixed(2);
-
       return { busName: busID, distanceMax: maxDistance };
     });
-    console.log(busObjects);
 
     // Set up accessor functions
     const formatDistance = (d) => +d;
@@ -79,7 +77,6 @@ class busTable {
 
   updateData(newData) {
     this.data = newData;
-    console.log('the new data selected');
     this.drawTable();
   }
 }

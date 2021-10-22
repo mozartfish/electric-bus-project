@@ -83,17 +83,22 @@ async function build() {
   const pollutionData = await d3.csv(
     './data/3. Supplementary Data/7. Pollutant Concentration.csv'
   );
+
+  // ENVIRONMENTAL STATISTICAL DATA
   const electricStatData = await d3.csv(
     './data/3. Supplementary Data/8. Ei_for_bus.csv'
   );
+
+  console.log('environmental impact data');
+  console.log(electricStatData);
 
   // PROCESS ELECTRIC BUS DATA
   const p20BEBData = processPlanData(p20Data);
   const p60BEBData = processPlanData(p60Data);
   const p180BEBData = processPlanData(p180Data);
 
-  console.log('p20 beb data');
-  console.log(p20BEBData);
+  // console.log('p20 beb data');
+  // console.log(p20BEBData);
 
   // ELECTRIC BUSES FOR EACH PLAN
   const p20Buses = p20BEBData['Electric Buses'];
@@ -198,15 +203,27 @@ async function build() {
     if (plan === '20') {
       // console.log('selected plan 20');
       // console.log(p20BEBData);
+      const p20EIData = electricStatData.filter((d) =>
+        p20Buses.includes(d.block_num)
+      );
       btable.updateData(p20BEBData);
+      eiHistogram.updateData(p20EIData);
     } else if (plan === '60') {
       // console.log('selected plan 60');
       // console.log(p60BEBData);
+      const p60EIData = electricStatData.filter((d) =>
+        p60Buses.includes(d.block_num)
+      );
       btable.updateData(p60BEBData);
+      eiHistogram.updateData(p60EIData);
     } else {
       // console.log('select plan 180');
       // console.log(p180BEBData);
+      const p180EIData = electricStatData.filter((d) =>
+        p180Buses.includes(d.block_num)
+      );
       btable.updateData(p180BEBData);
+      eiHistogram.updateData(p180EIData);
     }
   }
 
@@ -215,6 +232,13 @@ async function build() {
   // BUS TABLE
   let btable = new busTable(p20BEBData);
   btable.drawTable();
+
+  // ENVIRONMENTAL IMPACT HISTOGRAM
+  const p20EIData = electricStatData.filter((d) =>
+    p20Buses.includes(d.block_num)
+  );
+  let eiHistogram = new environmentalImpact(p20EIData);
+  eiHistogram.drawHistogram();
 
   setUpVisualization(p20BEBData, updateAllData);
 }
