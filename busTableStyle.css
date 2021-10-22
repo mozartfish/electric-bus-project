@@ -6,13 +6,14 @@
 #bus-table {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 5em 2em;
-  letter-spacing: -0.011em;
+  align-items: left;
+  padding: 0em 0em;
+  letter-spacing: -0.05em;
   font-family: 'Inter var', sans-serif;
   font-size: 16px;
   color: #34495e;
   background: #f8f9fa;
+  width: 50%;
 
 }
 
@@ -23,7 +24,7 @@ table {
 thead {
   font-size: 0.9em;
   letter-spacing: 0;
-  font-weight: 900;
+  font-weight: 00;
   white-space: nowrap;
   text-align: left;
 }
@@ -33,7 +34,7 @@ thead th {
   top: 0;
   color: #f8f9fa;
   background: #34495e;
-  padding: 1em 0.8rem;
+  padding: 1em 0.2rem;
 }
 
 tbody tr:nth-child(odd) {
@@ -52,10 +53,6 @@ td {
   text-align: right;
   font-feature-settings: 'tnum' 1;
 }
-.date {
-  text-align: right;
-  font-feature-settings: 'tnum' 1;
-}
 
 tbody .marker {
   font-size: 0.7em;
@@ -65,13 +62,9 @@ tbody .symbol {
   opacity: 0.6;
 }
 
-.centered {
-  text-align: center;
-}
-
 tbody .text {
   font-size: 0.9em;
-  white-space: nowrap;
+  white-space: normal;
   text-overflow: ellipsis;
   overflow: hidden;
 }
