@@ -191,31 +191,39 @@ async function build() {
     SEData
   );
 
-  function hello() {
-    d3.select('#dataset-selection').on('change', function () {
-      let planValue = d3.select('#dataset-selection').node().value;
-      // console.log('selection', value);
-      updateAllData(planValue);
-    });
-  }
-
+  /// FUNCTIONS FOR LOADING AND UPDATING THE VISUALIZATION //////////////////////////////////////
+  // console.log('p20 beb data - default load');
+  // console.log(p20BEBData);
   function updateAllData(plan) {
     if (plan === '20') {
       console.log('selected plan 20');
-      btable.updateData(p20BEBData);
+      console.log(p20BEBData);
+      // btable.updateData(p20BEBData);
     } else if (plan === '60') {
       console.log('selected plan 60');
-      btable.updateData(p60BEBData);
+      console.log(p60BEBData);
+      // btable.updateData(p60BEBData);
     } else {
       console.log('select plan 180');
-      btable.updateData(p180BEBData);
+      console.log(p180BEBData);
+      // btable.updateData(p180BEBData);
     }
   }
 
   // create the functions to handle the data data updates
-  let btable = new busTable(p20BEBData);
-  btable.drawTable();
+  // let btable = new busTable(p20BEBData);
+  // btable.drawTable();
 
-  hello();
+  setUpVisualization(p20BEBData, updateAllData);
 }
 build();
+
+//// FUNCTIONS FOR PERFORMING UPDATING THE VISUALIZATION///////////////////////////
+function setUpVisualization(data, updateAllData) {
+  console.log("data", data);
+  d3.select('#dataset-selection').on('change', function () {
+    let planValue = d3.select('#dataset-selection').node().value;
+    // console.log('selection', planValue);
+    updateAllData(planValue);
+  });
+}
