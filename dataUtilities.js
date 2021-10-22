@@ -234,10 +234,15 @@ function processStopSequences(runCutStopData) {
 /**
  *
  * @param {*} runCutStopData - the raw runcut data for a particular optimization plan
- * @param {*} busStopGeoData - the geo data associated with the bus stops
- * @returns - maps the bus to stop geometry
+ * @param {*} busStopGeoData - busStopGeoData - the geo data associated with the bus stops
+ * @param {*} electricRunCutData - the electric bus runcut data which stores the charging info
+ * @returns - maps the bus to stop geometry and charge
  */
-function processBusStopData(runCutStopData, busStopGeoData) {
+function processBusStopData(
+  runCutStopData,
+  busStopGeoData,
+  electricRunCutData
+) {
   const processStops = processStopSequences(runCutStopData);
   const busStopGeoDataFeatures = busStopGeoData.features;
   const busStopSequence = new Map();
@@ -252,6 +257,33 @@ function processBusStopData(runCutStopData, busStopGeoData) {
       stopList.push(stopGeometry);
     });
     busStopSequence.set(busID, stopList);
+  });
+
+  // add in the charge status
+  const chargeSequence = electricRunCutData['BEB Charge Sequences'];
+  const busStopCharge = new Map();
+  Object.entries(chargeSequence).forEach((busObj) => {
+    let busName = busObj[0];
+    let chargeList = busObj[1];
+    busStopCharge.set(busName, chargeList);
+  });
+
+  // Update charge status
+  busStopSequence.forEach((value, key) => {
+    let busID = key;
+    let stopList = value;
+    let chargeList = busStopCharge.get(busID);
+    const newStops = [];
+
+    for (let i = 0; i < stopList.length; i++) {
+      let stop = stopList[i];
+      let chargeStatus = chargeList[i];
+      const busStop = { ...stop };
+      busStop['chargeStatus'] = chargeStatus;
+      newStops.push(busStop);
+    }
+
+    busStopSequence.set(busID, newStops);
   });
 
   return busStopSequence;

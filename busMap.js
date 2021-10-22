@@ -15,15 +15,15 @@ class busMap {
     drawMap(stopNumber) {
       console.log('p60StopGeometry', this.p60StopGeometry);
   
-      //   // console.log('geoshape', this.geoShapeData);
+        // console.log('geoshape', this.geoShapeData);
       console.log('baseMap', window.baseMap);
         console.log('p60StopGeometry', this.p60StopGeometry);
         console.log('p60BusRouteGeometry', this.p60BusRouteGeometry);
         console.log("stop number", stopNumber)
-        // console.log("test forEach of route data",this.p60BusRouteGeometry.forEach((d) => { d[stopNumber] } ))
-      //   var rounteForEach = function(route) {
-      //     return route
-      // };
+        console.log("test forEach of route data",this.p60BusRouteGeometry.forEach((d) => { d[stopNumber] } ))
+        var rounteForEach = function(route) {
+          return route
+      };
   
   
   // remove the map layer of previous stop
@@ -141,7 +141,7 @@ class busMap {
    
   
      
-  console.log("route log test", this.p60BusRouteGeometry.length)
+  // console.log("route log test", this.p60BusRouteGeometry.length)
   
     const arr = [];
     if (this.p60BusRouteGeometry.length >= (stopNumber + 1)) {

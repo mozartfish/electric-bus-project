@@ -4,22 +4,22 @@ class environmentalImpact {
   }
 
   drawHistogram() {
-    console.log('histogram data');
-    console.log(this.data);
+    // console.log('histogram data');
+    // console.log(this.data);
 
     // // accessor functions
     // const xAccessor = (d) => +d.block_num;
     // const yAccessor = (d) => +d.Ei;
 
     // // chart dimensions
-    // const width = 1000;
+    // const width = 200;
     // let dimensions = {
     //   width: width,
-    //   height: width * 0.4,
+    //   height: width * 1.5,
     //   margin: {
-    //     top: 100,
+    //     top: 200,
     //     right: 50,
-    //     bottom: 100,
+    //     bottom: 50,
     //     left: 50,
     //   },
     // };
@@ -62,7 +62,7 @@ class environmentalImpact {
     //   .domain([0, d3.max(this.data, yAccessor)])
     //   .range([dimensions.boundedHeight, 0]);
 
-    // // draw data
+    // // // draw data
     // const barRects = wrapper
     //   .selectAll('rect')
     //   .data(this.data)

@@ -89,8 +89,8 @@ async function build() {
     './data/3. Supplementary Data/8. Ei_for_bus.csv'
   );
 
-  console.log('environmental impact data');
-  console.log(electricStatData);
+  // console.log('environmental impact data');
+  // console.log(electricStatData);
 
   // PROCESS ELECTRIC BUS DATA
   const p20BEBData = processPlanData(p20Data);
@@ -123,6 +123,9 @@ async function build() {
     p20RunCutStops,
     stopCoordinates
   );
+
+  // console.log("p20 runcut stop coords");
+  // console.log(p20RunCutStopsCoordinates);
   const p60RunCutStopsCoordinates = busIDCoordinates(
     p60RunCutStops,
     stopCoordinates
@@ -155,9 +158,9 @@ async function build() {
   // console.log(p180BusRouteGeometry);
 
   // STOP GEOMETRY DATA
-  const p20StopGeometry = processBusStopData(p20RunCutStops, busStopGeoData);
-  const p60StopGeometry = processBusStopData(p60RunCutStops, busStopGeoData);
-  const p180StopGeometry = processBusStopData(p180RunCutStops, busStopGeoData);
+  const p20StopGeometry = processBusStopData(p20RunCutStops, busStopGeoData, p20BEBData);
+  const p60StopGeometry = processBusStopData(p60RunCutStops, busStopGeoData, p60BEBData);
+  const p180StopGeometry = processBusStopData(p180RunCutStops, busStopGeoData, p180BEBData);
 
   // console.log('p20 stop geometry');
   // console.log(p20StopGeometry);
@@ -166,22 +169,22 @@ async function build() {
   // console.log('p180 stop geometry');
   // console.log(p180StopGeometry);
 
-  // CHARGE STATION GEOMETRY
-  const p20ChargeGeometry = processChargeStationSequence(
-    p20BEBData,
-    potentialStopData,
-    busStopGeoData
-  );
-  const p60ChargeGeometry = processChargeStationSequence(
-    p60BEBData,
-    potentialStopData,
-    busStopGeoData
-  );
-  const p180ChargeGeometry = processChargeStationSequence(
-    p180BEBData,
-    potentialStopData,
-    busStopGeoData
-  );
+  // // CHARGE STATION GEOMETRY
+  // const p20ChargeGeometry = processChargeStationSequence(
+  //   p20BEBData,
+  //   potentialStopData,
+  //   busStopGeoData
+  // );
+  // const p60ChargeGeometry = processChargeStationSequence(
+  //   p60BEBData,
+  //   potentialStopData,
+  //   busStopGeoData
+  // );
+  // const p180ChargeGeometry = processChargeStationSequence(
+  //   p180BEBData,
+  //   potentialStopData,
+  //   busStopGeoData
+  // );
 
   // console.log('p20 charge geometry');
   // console.log(p20ChargeGeometry);
@@ -245,7 +248,7 @@ async function build() {
 
   // Map goes here
   data = p60StopGeometry.get("1006")
-// console.log("data", data)
+console.log("data", data)
 
 var slider = document.getElementById("slider");
 var output = document.getElementById("demo");
@@ -316,7 +319,7 @@ build();
 
 //// FUNCTIONS FOR PERFORMING UPDATING THE VISUALIZATION///////////////////////////
 function setUpVisualization(data, updateAllData) {
-  console.log('data', data);
+  // console.log('data', data);
   d3.select('#dataset-selection').on('change', function () {
     let planValue = d3.select('#dataset-selection').node().value;
     // console.log('selection', planValue);
