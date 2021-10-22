@@ -92,8 +92,8 @@ async function build() {
   const p60BEBData = processPlanData(p60Data);
   const p180BEBData = processPlanData(p180Data);
 
-  // console.log('p20 beb data');
-  // console.log(p20BEBData);
+  console.log('p20 beb data');
+  console.log(p20BEBData);
 
   // ELECTRIC BUSES FOR EACH PLAN
   const p20Buses = p20BEBData['Electric Buses'];
@@ -211,6 +211,8 @@ async function build() {
   }
 
   // create the functions to handle the data data updates
+
+  // BUS TABLE
   let btable = new busTable(p20BEBData);
   btable.drawTable();
 
@@ -220,7 +222,7 @@ build();
 
 //// FUNCTIONS FOR PERFORMING UPDATING THE VISUALIZATION///////////////////////////
 function setUpVisualization(data, updateAllData) {
-  console.log("data", data);
+  console.log('data', data);
   d3.select('#dataset-selection').on('change', function () {
     let planValue = d3.select('#dataset-selection').node().value;
     // console.log('selection', planValue);
