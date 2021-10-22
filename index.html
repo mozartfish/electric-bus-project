@@ -16,8 +16,18 @@
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
       rel="stylesheet"
     />
+     <!--Leaflet Style sheet-->
+     <link
+     rel="stylesheet"
+     href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   />
     <!--d3 script-->
+    <link href="https://fonts.googleapis.com/css?family=Chivo:300|Overpass:300" rel="stylesheet">
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://d3js.org/queue.v1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/d3js/7.0.0/d3.min.js"></script>
+    <!-- Leaflet Script-->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   </head>
   <body>
     <!--Title Div-->
@@ -41,6 +51,15 @@
           </div>
         </div>
       </div>
+      <!-- Map and Slider -->
+      <div id="map" style="width: 600px; height: 400px"></div>
+
+      <div class="slidecontainer">
+    
+        <input type="range" min="0" step="1" value="0" class="slider" id="slider">
+        <br>
+        <p><font face= "Chivo"> Stop: <span id="demo"></span></p>
+      </div>
       <!--Environmental Impact -->
       <div class="environmental-impact">
         <div id="bus-table">
@@ -63,5 +82,6 @@
     <script src="busTable.js"></script>
     <script src="dataUtilities.js"></script>
     <script src="script.js"></script>
+    <script src="busMap.js"></script>
   </body>
 </html>

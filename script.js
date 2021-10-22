@@ -21,7 +21,7 @@ async function build() {
   const potentialStopData = await d3.csv(
     './data/2. Deployment Plans/2. UTA_Runcut_Potential_Stop.csv'
   );
-  const busStopGeoData = await d3.json('data/BusStopsProject.json');
+  const busStopGeoData = await d3.json('data/stopPlusMissingProjct.json');
   const busRouteGeoData = await d3.json('./data/BusRoutesProject.json');
   const TAZProjectionData = await d3.json('./data/TAZProject.json');
 
@@ -241,6 +241,76 @@ async function build() {
   eiHistogram.drawHistogram();
 
   setUpVisualization(p20BEBData, updateAllData);
+
+
+  // Map goes here
+  data = p60StopGeometry.get("1006")
+// console.log("data", data)
+
+var slider = document.getElementById("slider");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.max = data.length - 1
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+
+
+
+const baseMap = L.map('map').setView([40.758701, -111.876183], 8);
+baseMap.setZoom(9);
+      
+const openStreetMapLink =
+  '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+const osmLayer = L.tileLayer(
+  'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    attribution: '&copy; ' + openStreetMapLink + ' Contributors',
+    maxZoom: 20,
+  }
+).addTo(baseMap);
+
+
+var addMap =new busMap(baseMap, busRouteGeoData, p60StopGeometry.get("1006"), p60BusRouteGeometry.get("1006"));
+  // map.options.draggable = True;
+  // map.dragging.enable();
+  addMap.drawMap(0);
+
+
+  // // generate map view
+  // var map = new busMap(busRouteGeoData, p60StopGeometry, p60BusRouteGeometry);
+  // map.drawMap(0);
+  // // map.dragging.enable();
+
+d3.select("input")
+.on("change", function() {
+
+// // clear the map if it's already initiallized
+// var map = L.DomUtil.get('map');
+// if(map != null){
+// map._leaflet_id = null;
+// }
+
+
+var mapInput = +d3.select(this).node().value;
+// console.log("slider numbner", mapInput)
+
+    // generate map view
+  // map.dragging.enable();
+  // map.options.draggable = True;
+  var addMap =new busMap(baseMap, busRouteGeoData, p60StopGeometry.get("1006"), p60BusRouteGeometry.get("1006"));
+  // map.options.draggable = True;
+  // map.dragging.enable();
+  addMap.drawMap(mapInput);
+  // map.dragging.enable();
+
+  
+   
+})
+
+
 }
 build();
 
