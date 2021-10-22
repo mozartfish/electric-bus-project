@@ -4,26 +4,17 @@ class busTable {
   }
 
   drawTable() {
-    console.log('entered the draw table function for buses');
-    console.log('data');
-    console.log(this.data);
+    // console.log('entered the draw table function for buses');
+    // console.log('data');
+    // console.log(this.data);
 
-    console.log('bus name list');
-    const busNames = this.data['Electric Buses'];
-    console.log(busNames);
+    // // console.log('bus name list');
+    // const busNames = this.data['Electric Buses'];
+    // // console.log(busNames);
 
-    console.log('bus distances');
+    // console.log('bus distances');
     const busDistances = this.data['BEB Distances'];
-    console.log(busDistances);
-
-    // calculate the max distance traveled for each bus
-    // const busObjects = Object.entries(busDistances);
-    // busObjects.forEach((element) => {
-    //   const busID = element[0];
-    //   const distances = element[1];
-    //   const maxDistance = d3.sum(distances);
-    //   element[1] = maxDistance;
-    // });
+    // console.log(busDistances);
 
     const busObjects = Object.entries(busDistances).map((bus) => {
       let busID = bus[0];
@@ -55,6 +46,8 @@ class busTable {
 
     // build table
     const table = d3.select('#table');
+    table.select('thead').remove();
+    table.select('tbody').remove();
     table
       .append('thead')
       .append('tr')

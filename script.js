@@ -196,23 +196,23 @@ async function build() {
   // console.log(p20BEBData);
   function updateAllData(plan) {
     if (plan === '20') {
-      console.log('selected plan 20');
-      console.log(p20BEBData);
-      // btable.updateData(p20BEBData);
+      // console.log('selected plan 20');
+      // console.log(p20BEBData);
+      btable.updateData(p20BEBData);
     } else if (plan === '60') {
-      console.log('selected plan 60');
-      console.log(p60BEBData);
-      // btable.updateData(p60BEBData);
+      // console.log('selected plan 60');
+      // console.log(p60BEBData);
+      btable.updateData(p60BEBData);
     } else {
-      console.log('select plan 180');
-      console.log(p180BEBData);
-      // btable.updateData(p180BEBData);
+      // console.log('select plan 180');
+      // console.log(p180BEBData);
+      btable.updateData(p180BEBData);
     }
   }
 
   // create the functions to handle the data data updates
-  // let btable = new busTable(p20BEBData);
-  // btable.drawTable();
+  let btable = new busTable(p20BEBData);
+  btable.drawTable();
 
   setUpVisualization(p20BEBData, updateAllData);
 }
