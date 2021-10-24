@@ -89,16 +89,10 @@ async function build() {
     './data/3. Supplementary Data/8. Ei_for_bus.csv'
   );
 
-  // console.log('environmental impact data');
-  // console.log(electricStatData);
-
   // PROCESS ELECTRIC BUS DATA
   const p20BEBData = processPlanData(p20Data);
   const p60BEBData = processPlanData(p60Data);
   const p180BEBData = processPlanData(p180Data);
-
-  // console.log('p20 beb data');
-  // console.log(p20BEBData);
 
   // ELECTRIC BUSES FOR EACH PLAN
   const p20Buses = p20BEBData['Electric Buses'];
@@ -124,8 +118,6 @@ async function build() {
     stopCoordinates
   );
 
-  // console.log("p20 runcut stop coords");
-  // console.log(p20RunCutStopsCoordinates);
   const p60RunCutStopsCoordinates = busIDCoordinates(
     p60RunCutStops,
     stopCoordinates
@@ -150,48 +142,22 @@ async function build() {
     busRouteGeoData
   );
 
-  // console.log('p20 route geometry');
-  // console.log(p20BusRouteGeometry);
-  // console.log('p60 route geometry');
-  // console.log(p60BusRouteGeometry);
-  // console.log('p180 route geometry');
-  // console.log(p180BusRouteGeometry);
-
   // STOP GEOMETRY DATA
-  const p20StopGeometry = processBusStopData(p20RunCutStops, busStopGeoData, p20BEBData);
-  const p60StopGeometry = processBusStopData(p60RunCutStops, busStopGeoData, p60BEBData);
-  const p180StopGeometry = processBusStopData(p180RunCutStops, busStopGeoData, p180BEBData);
-
-  // console.log('p20 stop geometry');
-  // console.log(p20StopGeometry);
-  // console.log('p60 stop geometry');
-  // console.log(p60StopGeometry);
-  // console.log('p180 stop geometry');
-  // console.log(p180StopGeometry);
-
-  // // CHARGE STATION GEOMETRY
-  // const p20ChargeGeometry = processChargeStationSequence(
-  //   p20BEBData,
-  //   potentialStopData,
-  //   busStopGeoData
-  // );
-  // const p60ChargeGeometry = processChargeStationSequence(
-  //   p60BEBData,
-  //   potentialStopData,
-  //   busStopGeoData
-  // );
-  // const p180ChargeGeometry = processChargeStationSequence(
-  //   p180BEBData,
-  //   potentialStopData,
-  //   busStopGeoData
-  // );
-
-  // console.log('p20 charge geometry');
-  // console.log(p20ChargeGeometry);
-  // console.log('p60 charge geometry');
-  // console.log(p60ChargeGeometry);
-  // console.log('p180 charge geometry');
-  // console.log(p180ChargeGeometry);
+  const p20StopGeometry = processBusStopData(
+    p20RunCutStops,
+    busStopGeoData,
+    p20BEBData
+  );
+  const p60StopGeometry = processBusStopData(
+    p60RunCutStops,
+    busStopGeoData,
+    p60BEBData
+  );
+  const p180StopGeometry = processBusStopData(
+    p180RunCutStops,
+    busStopGeoData,
+    p180BEBData
+  );
 
   // GEOGRAPHICAL STATISTICAL DATA
   const geographicalStatistics = processGeographicalStatistics(
@@ -231,9 +197,43 @@ async function build() {
   }
 
   // create the functions to handle the data data updates
+  // CREATE BASE MAP
+  const baseMap = L.map('map').setView([40.758701, -111.876183], 8);
+  baseMap.setZoom(9);
+
+  const openStreetMapLink =
+    '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+  const osmLayer = L.tileLayer(
+    'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; ' + openStreetMapLink + ' Contributors',
+      maxZoom: 20,
+    }
+  ).addTo(baseMap);
+
+  // const initBusStopGeometry = p20StopGeometry.get('1009');
+  // const initBusRouteGeometry = p20BusRouteGeometry.get('1009');
+
+  const busID = '1009';
+  let bMap = new busMap(
+    baseMap,
+    busRouteGeoData,
+    p20StopGeometry,
+    p20BusRouteGeometry,
+    busID
+  );
+  bMap.drawMap(0);
+  bMap.moveBus('1009');
+  // var addMap = new busMap(
+  //   baseMap,
+  //   busRouteGeoData,
+  //   initBusGeometry,
+  //   initRouteGeometry
+  // );
+  // addMap.drawMap(0);
 
   // BUS TABLE
-  let btable = new busTable(p20BEBData);
+  let btable = new busTable(p20BEBData, null); // bus map needs to be replaced for null
   btable.drawTable();
 
   // ENVIRONMENTAL IMPACT HISTOGRAM
@@ -245,75 +245,43 @@ async function build() {
 
   setUpVisualization(p20BEBData, updateAllData);
 
-
   // Map goes here
-  data = p60StopGeometry.get("1006")
-console.log("data", data)
+  // data = p60StopGeometry.get('1006');
+  // console.log("data", data)
 
-var slider = document.getElementById("slider");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value;
+  // var slider = document.getElementById('slider');
+  // var output = document.getElementById('demo');
+  // output.innerHTML = slider.value;
 
-slider.max = data.length - 1
+  // slider.max = data.length - 1;
 
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
-
-
-
-const baseMap = L.map('map').setView([40.758701, -111.876183], 8);
-baseMap.setZoom(9);
-      
-const openStreetMapLink =
-  '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-const osmLayer = L.tileLayer(
-  'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; ' + openStreetMapLink + ' Contributors',
-    maxZoom: 20,
-  }
-).addTo(baseMap);
-
-
-var addMap =new busMap(baseMap, busRouteGeoData, p60StopGeometry.get("1006"), p60BusRouteGeometry.get("1006"));
-  // map.options.draggable = True;
-  // map.dragging.enable();
-  addMap.drawMap(0);
-
+  // slider.oninput = function () {
+  //   output.innerHTML = this.value;
+  // };
 
   // // generate map view
   // var map = new busMap(busRouteGeoData, p60StopGeometry, p60BusRouteGeometry);
   // map.drawMap(0);
   // // map.dragging.enable();
 
-d3.select("input")
-.on("change", function() {
+  // d3.select('input').on('change', function () {
+  //   var mapInput = +d3.select(this).node().value;
+  //   // console.log("slider numbner", mapInput)
 
-// // clear the map if it's already initiallized
-// var map = L.DomUtil.get('map');
-// if(map != null){
-// map._leaflet_id = null;
-// }
-
-
-var mapInput = +d3.select(this).node().value;
-// console.log("slider numbner", mapInput)
-
-    // generate map view
-  // map.dragging.enable();
-  // map.options.draggable = True;
-  var addMap =new busMap(baseMap, busRouteGeoData, p60StopGeometry.get("1006"), p60BusRouteGeometry.get("1006"));
-  // map.options.draggable = True;
-  // map.dragging.enable();
-  addMap.drawMap(mapInput);
-  // map.dragging.enable();
-
-  
-   
-})
-
-
+  //   // generate map view
+  //   // map.dragging.enable();
+  //   // map.options.draggable = True;
+  //   var addMap = new busMap(
+  //     baseMap,
+  //     busRouteGeoData,
+  //     p60StopGeometry.get('1006'),
+  //     p60BusRouteGeometry.get('1006')
+  //   );
+  //   // map.options.draggable = True;
+  //   // map.dragging.enable();
+  //   addMap.drawMap(mapInput);
+  //   // map.dragging.enable();
+  // });
 }
 build();
 
@@ -322,7 +290,6 @@ function setUpVisualization(data, updateAllData) {
   // console.log('data', data);
   d3.select('#dataset-selection').on('change', function () {
     let planValue = d3.select('#dataset-selection').node().value;
-    // console.log('selection', planValue);
     updateAllData(planValue);
   });
 }
