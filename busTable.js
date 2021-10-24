@@ -1,6 +1,7 @@
 class busTable {
   constructor(busData) {
     this.data = busData;
+    this.clickID = -1;
   }
 
   drawTable() {
@@ -73,10 +74,23 @@ class busTable {
           (column) => column.transform && column.transform(d)
         );
     });
+
+    body.on('click', function (d) {
+      console.log('log click number', d.path[0].innerHTML);
+      // window.result = getBusID("hello")
+      var clickID = d.path[0].innerHTML;
+      localStorage.setItem("clickID", clickID);
+      
+
+    });
   }
 
   updateData(newData) {
     this.data = newData;
     this.drawTable();
+  }
+
+  getClickID() {
+    return this.clickID;
   }
 }

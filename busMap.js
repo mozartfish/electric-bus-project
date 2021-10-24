@@ -198,20 +198,28 @@ class busMap {
     this.busID = '1009';
   }
 
-  moveBus(busID) {
-    const busStops = this.busStopGeometry.get(busID);
-    const busRoutes = this.busRouteGeometry.get(busID);
-    let slider = document.getElementById('slider');
-    let output = document.getElementById('demo');
-    let mapInput = +d3.select(this).node().value;
-    output.innerHTML = slider.ariaValueMax;
-    slider.max = busStops.length;
-    slider.oninput = function () {
-      output.innerHTML = this.value;
-    };
+  // moveBus(busID) {
+  //   const busStops = this.busStopGeometry.get(busID);
+  //   console.log(busStops.length - 1)
+  //   let slider = document.getElementById('slider');
+  //   let output = document.getElementById('demo');
+  //   output.innerHTML = slider.ariaValueMax;
+  //   slider.max = busStops.length - 1;
+  //   slider.oninput = function () {
+  //     output.innerHTML = this.value;
+  //   };
 
-    d3.select('input').on('change', () => {
-      this.drawMap(mapInput);
-    });
-  }
+  //   d3.select('input').on('change', () => {
+  //     let mapInput = +d3.select(this).node().value;
+  //     console.log('map Input', mapInput);
+  //     let map = new busMap(
+  //       baseMap,
+  //       this.busRouteGeoData,
+  //       this.busStopGeometry,
+  //       this.busRouteGeometry,
+  //       busID
+  //     );
+  //     map.drawMap(mapInput);
+  //   });
+  // }
 }
