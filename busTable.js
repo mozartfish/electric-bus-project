@@ -1,10 +1,11 @@
 class busTable {
-  constructor(busData) {
+  constructor(busData, func) {
     this.data = busData;
-    this.clickID = -1;
+    this.func = func;
   }
 
   drawTable() {
+    let that = this;
     // console.log('entered the draw table function for buses');
     // console.log('data');
     // console.log(this.data);
@@ -78,19 +79,19 @@ class busTable {
     body.on('click', function (d) {
       console.log('log click number', d.path[0].innerHTML);
       // window.result = getBusID("hello")
-      var clickID = d.path[0].innerHTML;
-      localStorage.setItem("clickID", clickID);
-      
-
+      // var clickID = d.path[0].innerHTML;
+      let busID = d.path[0].innerHTML;
+      // let that = this;
+      that.update(busID);
     });
+  }
+
+  update(busID) {
+    this.func(updateBuild(busID));
   }
 
   updateData(newData) {
     this.data = newData;
     this.drawTable();
-  }
-
-  getClickID() {
-    return this.clickID;
   }
 }

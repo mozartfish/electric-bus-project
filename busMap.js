@@ -25,10 +25,10 @@ class busMap {
   drawMap(stopNumber) {
     let busStops = this.busStopGeometry.get(this.busID);
     let busRoutes = this.busRouteGeometry.get(this.busID);
-    console.log('stop number', stopNumber);
-    console.log('bus stops', busStops);
-    console.log('busRoutes', busRoutes);
-    console.log('stop number', stopNumber);
+    // console.log('stop number', stopNumber);
+    // console.log('bus stops', busStops);
+    // console.log('busRoutes', busRoutes);
+    // console.log('stop number', stopNumber);
 
     //       // console.log('geoshape', this.geoShapeData);
     //     console.log('baseMap', window.baseMap);

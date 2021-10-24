@@ -3,7 +3,8 @@
  */
 
 // Test for ensuring the script is running properly in the browser
-window.result = -1;
+
+var result;
 async function build() {
   console.log('enter the build function');
 
@@ -207,6 +208,10 @@ async function build() {
     }
   }
 
+  // function hello() {
+  //   console.log('hello, world');
+  // }
+
   // create the functions to handle the data data updates
   // CREATE BASE MAP
   const baseMap = L.map('map').setView([40.758701, -111.876183], 8);
@@ -239,8 +244,37 @@ async function build() {
   // );
   // addMap.drawMap(0);
 
+  let mapUpdate = function (busID) {
+    console.log('hello, world');
+    // console.log('some rando iud', busID);
+    let data = p20StopGeometry.get(busID);
+
+    var slider = document.getElementById('slider');
+    var output = document.getElementById('demo');
+    output.innerHTML = slider.value;
+
+    slider.max = data.length - 1;
+
+    slider.oninput = function () {
+      output.innerHTML = this.value;
+    };
+
+    let moveMap = new busMap(
+      baseMap,
+      busRouteGeoData,
+      p20StopGeometry,
+      p20BusRouteGeometry,
+      busID
+    );
+     d3.select('input').on('change', function () {
+       var mapInput = +d3.select(this).node().value;
+       moveMap.drawMap(mapInput);
+     });
+    // console.log('some stops', data);
+  };
+
   // BUS TABLE
-  let btable = new busTable(p20BEBData); // bus map needs to be replaced for null
+  let btable = new busTable(p20BEBData, mapUpdate); // bus map needs to be replaced for null
   btable.drawTable();
 
   // ENVIRONMENTAL IMPACT HISTOGRAM
@@ -252,9 +286,7 @@ async function build() {
 
   setUpVisualization(p20BEBData, updateAllData);
 
-  const foo = localStorage.getItem('clickID');
-  const result = foo;
-  console.log('result value is gg', result);
+  // let result = clickID;
 
   // Map goes here
   // data = p60StopGeometry.get('1006');
@@ -286,12 +318,12 @@ async function build() {
   //   // generate map view
   //   // map.dragging.enable();
   //   // map.options.draggable = True;
-  //   var addMap = new busMap(
-  //     baseMap,
-  //     busRouteGeoData,
-  //     p60StopGeometry.get('1006'),
-  //     p60BusRouteGeometry.get('1006')
-  //   );
+  //   // var addMap = new busMap(
+  //   //   baseMap,
+  //   //   busRouteGeoData,
+  //   //   p60StopGeometry.get('1006'),
+  //   //   p60BusRouteGeometry.get('1006')
+  //   // );
   //   // map.options.draggable = True;
   //   // map.dragging.enable();
   //   addMap.drawMap(mapInput);
@@ -301,7 +333,7 @@ async function build() {
 build();
 
 //// FUNCTIONS FOR PERFORMING UPDATING THE VISUALIZATION///////////////////////////
-function setUpVisualization(data, updateAllData) {
+function setUpVisualization(updateAllData) {
   // console.log('data', data);
   d3.select('#dataset-selection').on('change', function () {
     let planValue = d3.select('#dataset-selection').node().value;
@@ -310,7 +342,10 @@ function setUpVisualization(data, updateAllData) {
 }
 
 function getBusID(busID) {
-  // console.log('get rekt');
-  // console.log('busId', busID);
+  result = busID;
+}
+
+function updateBuild(busID) {
+  console.log('get shrekt', busID);
   return busID;
 }
