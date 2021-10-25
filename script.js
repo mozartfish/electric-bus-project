@@ -227,15 +227,18 @@ async function build() {
     }
   ).addTo(baseMap);
 
-  const busID = '1009';
-  let bMap = new busMap(
-    baseMap,
-    busRouteGeoData,
-    p20StopGeometry,
-    p20BusRouteGeometry,
-    busID
-  );
-  bMap.drawMap(0);
+  // const busID = '1009';
+  // let bMap = new busMap(
+  //   baseMap,
+  //   busRouteGeoData,
+  //   p20StopGeometry,
+  //   p20BusRouteGeometry,
+  //   busID
+  // );
+  // bMap.drawMap(0);
+
+
+
   // var addMap = new busMap(
   //   baseMap,
   //   busRouteGeoData,
@@ -246,18 +249,12 @@ async function build() {
 
   let mapUpdate = function (busID) {
     console.log('hello, world');
-    // console.log('some rando iud', busID);
+    console.log('some rando iud', busID);
     let data = p20StopGeometry.get(busID);
 
     var slider = document.getElementById('slider');
     var output = document.getElementById('demo');
-    output.innerHTML = slider.value;
-
-    slider.max = data.length - 1;
-
-    slider.oninput = function () {
-      output.innerHTML = this.value;
-    };
+   
 
     let moveMap = new busMap(
       baseMap,
@@ -266,6 +263,16 @@ async function build() {
       p20BusRouteGeometry,
       busID
     );
+    moveMap.drawMap(0);
+
+    output.innerHTML = slider.value;
+
+    slider.max = data.length - 1;
+
+    slider.oninput = function () {
+      output.innerHTML = this.value;
+    };
+
      d3.select('input').on('change', function () {
        var mapInput = +d3.select(this).node().value;
        moveMap.drawMap(mapInput);
