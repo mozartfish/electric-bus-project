@@ -27,16 +27,50 @@ class busMap {
       if (layer['_latlng'] != undefined) layer.remove();
     });
 
+    const goldIcon = new L.Icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+
     let addMarkers = (point) => {
-      if (Object.keys(point).length >= stopNumber + 1) {
-        L.marker([
-          point[stopNumber].geometry.coordinates[1],
-          point[stopNumber].geometry.coordinates[0],
-        ])
-          .bindPopup('Stop Name: ' + point[stopNumber].properties.StopName)
-          .addTo(window.baseMap);
+      if (Object.keys(point).length >= (stopNumber + 1)) {
+ 
+        if (point[stopNumber].chargeStatus == 0) {
+
+
+          var list1 = "<dl>" + "Stop Name: " + point[stopNumber].properties.StopName +"</dt>"
+         + "<dd>" + "Not charging" + "</dd>"     
+             
+          L.marker([point[stopNumber].geometry.coordinates[1], point[stopNumber].geometry.coordinates[0]])
+          .bindPopup(list1)
+          .addTo(window.baseMap)
+        }
+
+        else {
+          var list2 = "<dl>" + "Stop Name: " + point[stopNumber].properties.StopName +"</dt>"
+         + "<dd>" + "CHARGING..." + "</dd>" 
+
+          L.marker([point[stopNumber].geometry.coordinates[1], point[stopNumber].geometry.coordinates[0]], {icon: goldIcon})
+        .bindPopup(list2)
+        .addTo(window.baseMap)
+      }
       }
     };
+
+    // let addMarkers = (point) => {
+    //   if (Object.keys(point).length >= stopNumber + 1) {
+    //     L.marker([
+    //       point[stopNumber].geometry.coordinates[1],
+    //       point[stopNumber].geometry.coordinates[0],
+    //     ])
+    //       .bindPopup('Stop Name: ' + point[stopNumber].properties.StopName)
+    //       .addTo(window.baseMap);
+    //   }
+    // };
 
     addMarkers(busStops);
 
