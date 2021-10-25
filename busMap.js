@@ -1,12 +1,4 @@
 class busMap {
-  // constructor(baseMap, busRouteGeoData, p60StopGeometry, p60BusRouteGeometry) {
-  //   // this.baseMap = baseMap;
-  //   window.baseMap = baseMap;
-  //   this.p60StopGeometry = p60StopGeometry;
-  //   this.p60BusRouteGeometry = p60BusRouteGeometry;
-  //   this.busRouteGeoData = busRouteGeoData;
-  // }
-
   constructor(
     baseMap,
     busRouteGeoData,
@@ -25,18 +17,7 @@ class busMap {
   drawMap(stopNumber) {
     let busStops = this.busStopGeometry.get(this.busID);
     let busRoutes = this.busRouteGeometry.get(this.busID);
-    // console.log('stop number', stopNumber);
-    // console.log('bus stops', busStops);
-    // console.log('busRoutes', busRoutes);
-    // console.log('stop number', stopNumber);
-
-    //       // console.log('geoshape', this.geoShapeData);
-    //     console.log('baseMap', window.baseMap);
-    //       console.log('p60StopGeometry', this.p60StopGeometry);
-    //       console.log('p60BusRouteGeometry', this.p60BusRouteGeometry);
-    //       console.log("stop number", stopNumber)
-    //       console.log("test forEach of route data",this.p60BusRouteGeometry.forEach((d) => { d[stopNumber] } ))
-
+   
     let rounteForEach = function (route) {
       return route;
     };
@@ -59,64 +40,7 @@ class busMap {
 
     addMarkers(busStops);
 
-    //     // var addMarkers = (point) => {
-    //     //   if (Object.keys(point).length >= (stopNumber + 1)) {
 
-    //     //   L.marker([point[stopNumber].geometry.coordinates[1], point[stopNumber].geometry.coordinates[0]])
-    //     //       // .bindPopup("Stop Name: " + point[stopNumber].properties.StopName)
-    //     //       .on('click', function(e) {
-    //     //         console.log("marker", this.index)
-    //     //         this.openPopup("Stop Name: " + point[stopNumber].properties.StopName);
-    //     //     })
-    //     //       .addTo(window.baseMap)
-
-    //     //         // .bindPopup(point.NAME);
-    //     //       // .dragging.enable();
-    //     //   }
-
-    //     // };
-
-    //     // addMarkers(this.p60StopGeometry)
-
-    //     // var layerGroup = L.layerGroup().addTo(window.baseMap);
-    //     // var addMarkers = (point) => {
-    //     //   if (Object.keys(point).length >= (stopNumber + 1)) {
-
-    //     //       L.marker([point[stopNumber].geometry.coordinates[1], point[stopNumber].geometry.coordinates[0]])
-    //     //       // .bindPopup("Stop Name: " + point[stopNumber].properties.StopName)
-    //     //       .addTo(layerGroup)
-    //     //         // .bindPopup(point.NAME);
-    //     //       // .dragging.enable();
-    //     //   }
-    //     // };
-
-    //     // addMarkers(this.p60StopGeometry)
-
-    //   //   var layerGroup = L.layerGroup().addTo(window.baseMap);
-
-    //   //   if (Object.keys(this.p60StopGeometry).length >= (stopNumber + 1)) {
-
-    //   //     var marker = L.marker([this.p60StopGeometry[stopNumber].geometry.coordinates[1], this.p60StopGeometry[stopNumber].geometry.coordinates[0]])
-    //   //     // .bindPopup("Stop Name: " + point[stopNumber].properties.StopName)
-    //   //     .addTo(layerGroup)
-    //   //       // .bindPopup(point.NAME);
-    //   //     // .dragging.enable();
-
-    //   //     marker.on('mouseover', function(e) {
-    //   //           console.log("marker", e)
-    //   //           this.openPopup("Stop Name: " + this.p60StopGeometry[stopNumber].properties.StopName);
-    //   //       })
-    //   // }
-
-    //   //   layerGroup.on('mouseover', function(point){
-    //   //     console.log("marker", point)
-    //   //     layerGroup.openPopup("Stop Name: " + point[stopNumber].properties.StopName);
-    //   // });
-
-    //     // var addMarkers = function(point) {
-    //     //   console.log("print point object", point);
-    //     //   console.log("length of each array", Object.keys(point).length)
-    //     // };
 
     if (d3.select('#routeSVG') != undefined) {
       d3.select('#routeSVG').remove();
@@ -191,10 +115,4 @@ class busMap {
     window.baseMap.on('zoomend', reset1);
     reset1();
   }
-
-  // updateData(newBusStopGeometry, newBusRouteGeometry) {
-  //   this.busStopGeometry = newBusStopGeometry;
-  //   this.busRouteGeometry = newBusRouteGeometry;
-  //   this.busID = '1009';
-  // }
 }

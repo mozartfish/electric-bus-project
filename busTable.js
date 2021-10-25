@@ -7,17 +7,7 @@ class busTable {
 
   drawTable() {
     let that = this;
-    // console.log('entered the draw table function for buses');
-    // console.log('data');
-    // console.log(this.data);
-
-    // // console.log('bus name list');
-    // const busNames = this.data['Electric Buses'];
-    // // console.log(busNames);
-
-    // console.log('bus distances');
     const busDistances = this.data['BEB Distances'];
-    // console.log(busDistances);
 
     const busObjects = Object.entries(busDistances).map((bus) => {
       let busID = bus[0];
