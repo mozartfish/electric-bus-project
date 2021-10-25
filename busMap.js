@@ -192,34 +192,9 @@ class busMap {
     reset1();
   }
 
-  updateData(newBusStopGeometry, newBusRouteGeometry) {
-    this.busStopGeometry = newBusStopGeometry;
-    this.busRouteGeometry = newBusRouteGeometry;
-    this.busID = '1009';
-  }
-
-  // moveBus(busID) {
-  //   const busStops = this.busStopGeometry.get(busID);
-  //   console.log(busStops.length - 1)
-  //   let slider = document.getElementById('slider');
-  //   let output = document.getElementById('demo');
-  //   output.innerHTML = slider.ariaValueMax;
-  //   slider.max = busStops.length - 1;
-  //   slider.oninput = function () {
-  //     output.innerHTML = this.value;
-  //   };
-
-  //   d3.select('input').on('change', () => {
-  //     let mapInput = +d3.select(this).node().value;
-  //     console.log('map Input', mapInput);
-  //     let map = new busMap(
-  //       baseMap,
-  //       this.busRouteGeoData,
-  //       this.busStopGeometry,
-  //       this.busRouteGeometry,
-  //       busID
-  //     );
-  //     map.drawMap(mapInput);
-  //   });
+  // updateData(newBusStopGeometry, newBusRouteGeometry) {
+  //   this.busStopGeometry = newBusStopGeometry;
+  //   this.busRouteGeometry = newBusRouteGeometry;
+  //   this.busID = '1009';
   // }
 }

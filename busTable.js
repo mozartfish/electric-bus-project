@@ -2,6 +2,7 @@ class busTable {
   constructor(busData, func) {
     this.data = busData;
     this.func = func;
+    this.plan = null;
   }
 
   drawTable() {
@@ -77,21 +78,19 @@ class busTable {
     });
 
     body.on('click', function (d) {
-      console.log('log click number', d.path[0].innerHTML);
-      // window.result = getBusID("hello")
-      // var clickID = d.path[0].innerHTML;
+      // console.log('log click number', d.path[0].innerHTML);
       let busID = d.path[0].innerHTML;
-      // let that = this;
-      that.update(busID);
+      that.update(busID, this.plan);
     });
   }
 
-  update(busID) {
-    this.func(updateBuild(busID));
+  update(busID, planVal) {
+    this.func(updateBuild(busID, this.plan));
   }
 
-  updateData(newData) {
+  updateData(newData, plan) {
     this.data = newData;
+    this.plan = plan;
     this.drawTable();
   }
 }
