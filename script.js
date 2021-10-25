@@ -291,7 +291,7 @@ async function build() {
   let eiHistogram = new environmentalImpact(p20EIData);
   eiHistogram.drawHistogram();
 
-  setUpVisualization(p20BEBData, updateAllData);
+  setUpVisualization(updateAllData);
 
   // let result = clickID;
 
@@ -344,15 +344,14 @@ function setUpVisualization(updateAllData) {
   // console.log('data', data);
   d3.select('#dataset-selection').on('change', function () {
     let planValue = d3.select('#dataset-selection').node().value;
+    console.log("fix plan update", planValue)
     updateAllData(planValue);
   });
 }
 
-function getBusID(busID) {
-  result = busID;
-}
+
 
 function updateBuild(busID) {
-  console.log('get shrekt', busID);
+  // console.log('get shrekt', busID);
   return busID;
 }
