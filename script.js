@@ -171,8 +171,6 @@ async function build() {
   /// FUNCTIONS FOR LOADING AND UPDATING THE VISUALIZATION /////////////////////////////////
   function updateAllData(plan) {
     if (plan === '20') {
-      // console.log('selected plan 20');
-      // console.log(p20BEBData);
       const p20EIData = electricStatData.filter((d) =>
         p20Buses.includes(d.block_num)
       );
@@ -182,24 +180,19 @@ async function build() {
       busStopGeometry = p20StopGeometry;
       routeGeometry = p20BusRouteGeometry;
     } else if (plan === '60') {
-      // console.log('selected plan 60');
-      // console.log(p60BEBData);
       const p60EIData = electricStatData.filter((d) =>
         p60Buses.includes(d.block_num)
       );
       btable.updateData(p60BEBData, '60');
-      // console.log('p60 plan', btable.plan);
+
       eiHistogram.updateData(p60EIData);
       busStopGeometry = p60StopGeometry;
       routeGeometry = p60BusRouteGeometry;
     } else {
-      // console.log('select plan 180');
-      // console.log(p180BEBData);
       const p180EIData = electricStatData.filter((d) =>
         p180Buses.includes(d.block_num)
       );
       btable.updateData(p180BEBData, '180');
-      // console.log('p180 plan', btable.plan);
       eiHistogram.updateData(p180EIData);
       busStopGeometry = p180StopGeometry;
       routeGeometry = p180BusRouteGeometry;
@@ -306,7 +299,6 @@ build();
 
 //// FUNCTIONS FOR PERFORMING UPDATING THE VISUALIZATION///////////////////////////
 function setUpVisualization(updateAllData) {
-  // console.log('data', data);
   d3.select('#dataset-selection').on('change', function () {
     let planValue = d3.select('#dataset-selection').node().value;
     updateAllData(planValue);

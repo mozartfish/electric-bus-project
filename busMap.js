@@ -1,3 +1,4 @@
+// Authors: Pranav Rajan and Jasmine Han
 class busMap {
   constructor(
     baseMap,
@@ -61,16 +62,7 @@ class busMap {
       }
     };
 
-    // let addMarkers = (point) => {
-    //   if (Object.keys(point).length >= stopNumber + 1) {
-    //     L.marker([
-    //       point[stopNumber].geometry.coordinates[1],
-    //       point[stopNumber].geometry.coordinates[0],
-    //     ])
-    //       .bindPopup('Stop Name: ' + point[stopNumber].properties.StopName)
-    //       .addTo(window.baseMap);
-    //   }
-    // };
+  
 
     addMarkers(busStops);
 
@@ -85,13 +77,12 @@ class busMap {
       .append('svg')
       .attr('id', 'routeSVG');
 
-    // //   const tazGroup = tazSVG.append('g').attr('class', 'tazClass').attr('id', 'tazId');
+
     const routeGroup = routeSVG
       .append('g')
       .attr('class', 'routeClass')
       .attr('id', 'routeId');
 
-    // const stopGroup = stopSVG.append("g").attr('class', 'stopClass').attr('id', 'stopId');
 
     // project the point onto openstreetmap
 
@@ -103,9 +94,7 @@ class busMap {
     const projection = d3.geoTransform({ point: projectPoint });
     // create a d3.geoPath to convert GeoJSON to SVG
     const path = d3.geoPath().projection(projection);
-    //     // console.log('the path', path);
 
-    // // console.log("route log test", this.p60BusRouteGeometry.length)
 
     const arr = [];
     if (busRoutes.length >= stopNumber + 1) {
@@ -145,7 +134,7 @@ class busMap {
         .attr('stroke-width', 5);
     };
 
-    // map.on('viewreset', reset1);
+
     window.baseMap.on('zoomend', reset1);
     reset1();
   }

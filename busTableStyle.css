@@ -1,14 +1,16 @@
+/*
+These stylings were borrowed and modified from Amelia Wattenberger's Full-Stack D3-Textbook Chap 9. Dashboard code
+*/
 #bus-table {
   display: flex;
   flex-direction: column;
   align-items: left;
-  padding: 0em 0em;
   letter-spacing: -0.05em;
-  font-family: 'Inter var', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   color: #34495e;
   background: #f8f9fa;
-  width: 50%;
+  width: 100%;
 
 }
 
@@ -18,15 +20,12 @@ table {
 
 thead {
   font-size: 0.9em;
-  letter-spacing: 0;
-  font-weight: 00;
-  white-space: nowrap;
   text-align: left;
 }
 
 thead th {
   position: sticky;
-  top: 0;
+    top: 0;
   color: #f8f9fa;
   background: #34495e;
   padding: 1em 0.2rem;
@@ -49,17 +48,3 @@ td {
   font-feature-settings: 'tnum' 1;
 }
 
-tbody .marker {
-  font-size: 0.7em;
-}
-
-tbody .symbol {
-  opacity: 0.6;
-}
-
-tbody .text {
-  font-size: 0.9em;
-  white-space: normal;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}

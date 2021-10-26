@@ -1,5 +1,5 @@
 // Author: Pranav Rajan
-
+// This code is based on the Dashboard code from Amelia Wattenberger's Fullstack-D3 Book
 class busTable {
   constructor(busData, func, updateElectric) {
     this.data = busData;
@@ -24,7 +24,6 @@ class busTable {
     const formatBusName = (d) => +d;
 
     // Set up table information
-    const numberOfRows = busObjects.length;
     const columns = [
       {
         label: 'Bus ID',
@@ -71,13 +70,12 @@ class busTable {
     });
 
     body.on('click', function (d) {
-      // console.log('log click number', d.path[0].innerHTML);
       let busID = d.path[0].innerHTML;
       that.update(busID, this.plan);
     });
   }
 
-  update(busID, planVal) {
+  update(busID) {
     this.func(updateBuild(busID, this.plan));
     this.charge(updateBuild(busID, this.plan));
   }

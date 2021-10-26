@@ -1,3 +1,5 @@
+// Author: Pranav Rajan
+// This code is based on Amelia Wattenberger's Line Chart Tutorial in her book Full-Stack D3 published in 2019
 class lineChart {
   constructor(data, busID) {
     this.data = data;
@@ -13,7 +15,6 @@ class lineChart {
 
     // find the bus object
     const bebDist = distEntries.find((distance) => distance[0] === this.busID);
-    console.log('beb dist', bebDist);
 
     const busDistances = bebDist[1];
 
@@ -133,7 +134,7 @@ class lineChart {
       .attr('transform', `translate(-35, 300), rotate(-90)`)
       .attr('id', 'y-title')
       .append('text')
-      .text('Percentage Charged');
+      .text('Percentage Charged (Decimal Format)');
   }
 
   updateLineChart(busID, planValue, data) {
