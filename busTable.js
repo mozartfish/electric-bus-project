@@ -1,3 +1,5 @@
+// Author: Pranav Rajan
+
 class busTable {
   constructor(busData, func) {
     this.data = busData;

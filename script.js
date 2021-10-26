@@ -4,6 +4,7 @@
 
 // Test for ensuring the script is running properly in the browser
 
+// Author: Pranav Rajan
 var result;
 async function build() {
   console.log('enter the build function');
