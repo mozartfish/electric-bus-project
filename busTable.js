@@ -1,10 +1,11 @@
 // Author: Pranav Rajan
 
 class busTable {
-  constructor(busData, func) {
+  constructor(busData, func, updateElectric) {
     this.data = busData;
     this.func = func;
     this.plan = null;
+    this.charge = updateElectric;
   }
 
   drawTable() {
@@ -78,6 +79,7 @@ class busTable {
 
   update(busID, planVal) {
     this.func(updateBuild(busID, this.plan));
+    this.charge(updateBuild(busID, this.plan));
   }
 
   updateData(newData, plan) {
