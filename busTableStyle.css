@@ -1,0 +1,50 @@
+/*
+These stylings were borrowed and modified from Amelia Wattenberger's Full-Stack D3-Textbook Chap 9. Dashboard code
+*/
+#bus-table {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  letter-spacing: -0.05em;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: #34495e;
+  background: #f8f9fa;
+  width: 100%;
+
+}
+
+table {
+  border-collapse: collapse;
+}
+
+thead {
+  font-size: 0.9em;
+  text-align: left;
+}
+
+thead th {
+  position: sticky;
+    top: 0;
+  color: #f8f9fa;
+  background: #34495e;
+  padding: 1em 0.2rem;
+}
+
+tbody tr:nth-child(odd) {
+  background: #f0f0f3;
+}
+
+tbody tr:hover {
+  background: #d7ecec;
+}
+
+td {
+  padding: 0.9rem 0.9rem;
+}
+
+.number {
+  text-align: right;
+  font-feature-settings: 'tnum' 1;
+}
+

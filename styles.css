@@ -1,3 +1,112 @@
-#TazSVG {
-    position: relative;
+html {
+  font-family: 'Roboto', sans-serif;
 }
+
+body {
+  background-color: #f0f0f0;
+}
+
+/*Lines 10-52 of the CSS Styles were borrowed from Sunny Siu and Kaelin Hoang's PokeData Styling for the nav bar https://github.com/sunsiu/poke-data*/
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+#nav {
+  background: #222224;
+  max-height: 20px;
+  grid-column: 1 / span 3;
+  grid-row: 1/ 2;
+  padding: 10px;
+  padding-left: 50px;
+  display: flex;
+}
+.selection-container {
+  display: inline-block;
+  margin-right: 25px;
+}
+
+#selection-label {
+  font-weight: bold;
+  font-size: 16pt;
+  margin-right: 20px;
+  color: white;
+}
+
+.my-link {
+  margin-right: 25px;
+  display: inline-block;
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+.my-link a:link,
+.my-link a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+
+.environmental-impact {
+  grid-column: 1/3;
+  grid-row: 2/3;
+  padding-left: 20px;
+}
+.line-chart {
+  grid-column: 1/3;
+  grid-row: 5/7;
+  padding-left: 50px;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+}
+
+/* css for slider */
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 65%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #838383;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #838383;
+  cursor: pointer;
+}
+
+
+.environmental {
+  position: relative;
+}
+
