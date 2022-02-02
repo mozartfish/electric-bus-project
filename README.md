@@ -2,7 +2,7 @@
 CS 6965 (Advanced Data Visualization) Electric Bus Project
 
 ## Authors
-Pranav Rajan (MS Computing HCC Candidate) - Data Wrangling, Webpage Development, Visualization work
+Pranav Rajan (MS Computing HCC Candidate) - Data Wrangling, Webpage Development, Visualization work <br>
 Jasmine Han (Geography PhD Candidate) - Geographical Data Wrangling, geographic visualization work
 
 ## Description
